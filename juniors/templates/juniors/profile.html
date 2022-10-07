@@ -19,7 +19,7 @@
         <img class="profile__header-img" src="{% static 'juniors/images/account.png' %}" alt="account" />
         {% endif %}
         <div class="profile__header-info">
-          <h3 class="profile__header-text">{{ junior.first_name }} {{ junior.last_name }}</h3>
+          <h3 class="profile__header-text">{{ user.junior.first_name }} {{ user.junior.last_name }}</h3>
           <a href="#" class="profile__header-btn">Редактировать профиль</a>
         </div>
       </div>

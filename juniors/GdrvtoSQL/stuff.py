@@ -6,7 +6,7 @@ from slugify import slugify
 
 
 
-gc = gspread.service_account(filename='D:\My\Py\Projects\ITHunt-onHeroku\juniors\GdrvtoSQL\gspread\service_account.json')
+gc = gspread.service_account()
 URL = 'https://docs.google.com/spreadsheets/d/1QfmafovfVCDsxbUIqXi8BOz41nayuqT5JMdUoP9uPlE/edit#gid=0'
 
 class Junior:

@@ -82,9 +82,11 @@ WSGI_APPLICATION = 'juniorshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'juniors',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
+        'NAME': 'deqv69le67qd7p',
+        'USER': 'ozzpfqoboffezo',
+        'PASSWORD': 'e485a6389c1ca44bf064abcc9072d473b1cd41f83817702502d504524cad6a41',
+        'HOST': 'ec2-52-31-70-136.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
     }
 }
 

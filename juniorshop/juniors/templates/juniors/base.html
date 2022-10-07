@@ -1,0 +1,89 @@
+{% load static %}
+{% load jun_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Главная страница</title>
+    <link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link
+      href="http://fonts.cdnfonts.com/css/gt-walsheim-pro"
+      rel="stylesheet"
+    />
+    <!-- /////////////////////Ползунок -->
+    <link
+      rel="stylesheet"
+      href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
+    />
+
+    <!-- /////////////////////////////////// -->
+    <link rel="stylesheet" href="{% static 'juniors/css/style.min.css' %}" type="text/css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header__inner">
+          <div class="header__logo">
+            <a class="logo__link" href="{% url 'index' %}">
+              <img class="logo__img" src="{% static 'juniors/images/logo.svg' %}" />
+            </a>
+          </div>
+          <div class="header__search">
+
+            <form class="search-form" method="get" action="#">
+              <img class="search-form__icon" src="{% static 'juniors/images/search.svg' %}" />
+              {{ search.form.as_p }}
+              <button class="search-form__btn" type="submit">Искать</button>
+            </form>
+          </div>
+              {% if request.user.is_authenticated %}
+            <div class="header__account">
+                <a class="header__account-link" href="{% url 'profile' %}">{{ user.username }}</a>
+<!--                {% if user.junior.url_img %}-->
+<!--                    <img class="relations__img" src="{{ user.junior.url_img.url }}">-->
+<!--                {% else %}-->
+<!--                    <img class="relations__img" src="{% static 'juniors/images/coder.gif'%}">-->
+<!--                {% endif %}-->
+                <a class="header__account-link" href="{% url 'logout' %}">Выйти</a>
+            </div>
+              {% else %}
+            <div class="header__account">
+                <a class="header__account-link" href="{% url 'registration' %}">Регистрация</a>
+                <a class="header__account-link" href="{% url 'login' %}">Авторизация</a>
+            </div>
+              {% endif %}
+        </div>
+      </div>
+    </header>
+    <blockquote class="blockquote"></blockquote>
+{% block content %}
+{% endblock %}
+<footer class="footer">
+  <div class="container">
+    <hr class="line">
+    <div class="footer__inner">
+      <ul class="footer__list">
+        {% get_position as position %}
+        {% for pos in position %}
+        <li class="footer__item">
+          <a href="{{ pos.get_absolute_url }}" class="footer__item-text">{{ pos.position }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+      <p class="footer__copyright">Copyright 2022 - IT Hunt</p>
+    </div>
+  </div>
+</footer>
+  <script src="{% static 'juniors/js/main.min.js' %}"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  </body>
+</html>

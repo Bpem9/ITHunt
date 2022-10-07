@@ -1,0 +1,40 @@
+{% extends 'juniors/base.html' %}
+{% load static %}
+{% load jun_tags %}
+{% block content %}
+    <section class="links">
+      <div class="container">
+        <div class="links__inner">
+          <a href="{% url 'index' %}" class="links__link">Главная</a>
+          <a href="{{ junior.position.get_absolute_url }}" class="links__link">{{ junior.position.position }}</a>
+        </div>
+      </div>
+    </section>
+    <section class="relations">
+        <div class="container">
+            <div class="relations__inner">
+                {% if junior.url_img %}
+                    <img class="relations__img" src="{{ junior.url_img.url }}">
+                {% else %}
+                    <img class="relations__img" src="{% static 'juniors/images/coder.gif'%}">
+                {% endif %}
+                <ul class="relations__box">
+                    <li class="relations__item">
+                        <h4 class="relations__item-title">{{ junior.first_name }} {{ junior.last_name }}</h4>
+                        <img src="{% static 'juniors/images/flag-us.svg' %}" alt="flag-us" class="relations__item-img">
+                    </li>
+                    <li class="relations__item">
+                        <p class="relations__item-text">A {{ junior.position }}, {{ junior.exp }} опыта</p>
+                    </li>
+                    {% messangers_icons jun_slug=jun_slug %}
+                </ul>
+                <div class="relations__buttons">
+                    <div class="relations__btn-like">
+                    </div>
+                    <div class="relations__btn-dropmenu">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

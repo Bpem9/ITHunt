@@ -1,0 +1,76 @@
+{% extends 'juniors/base.html' %}
+{% load jun_tags %}
+{% block content %}
+<div class="container">
+    <h1>Страница джуна: {{ junior.first_name }} {{ junior.last_name }}</h1>
+    <!--{% if junior.photo %}-->
+    <!--<p><img class="img-article-left" src="{{ junior.photo.url }}"></p>-->
+    <!--{% endif %}-->
+    <p>Зарплата: {{junior.salary}}</p>
+    <p>Опыт работы: {{junior.exp}}</p>
+    {% messangers_icons jun_slug=jun_slug %}
+    <ul>
+        <h1>Мягкие навыки</h1>
+        {% get_juns_softskills as junsoftskills %}
+        {% for skill in junsoftskills %}
+            <li>{{skill.skill}}</li>
+        {% endfor %}
+        <form class="row g-2" method="get">
+              <div class="col-auto">
+                  <label for="softInput" class="form-label">Softskills</label>
+                  <input class="form-control" list="softskills" name="softskills" id="softInput" placeholder="Type to search...">
+                  <datalist id="softskills">
+                        {% for skill in softskills_full %}
+                          <option value="{{ skill.skill }}">
+                        {% endfor %}
+                  </datalist>
+              </div>
+              <div class="col-auto">
+                  <button type="submit" class="btn btn-primary mb-2">Confirm softskill</button>
+              </div>
+        </form>
+    </ul>
+    <ul>
+        <h1>Жесткие навыки</h1>
+        {% get_juns_hardskills as hardskills %}
+        {% for hdskill in hardskills %}
+            <li>{{hdskill.skill}}</li>
+        {% endfor %}
+        <form class="row g-2">
+              <div class="col-auto">
+                  <label for="hardInput" class="form-label">Hardskills</label>
+                  <input class="form-control" list="hardskills" name="hardskills" id="hardInput" placeholder="Type to search...">
+                  <datalist id="hardskills">
+                        {% for skill in hardskills_full %}
+                          <option value="{{ skill.skill }}">
+                        {% endfor %}
+                  </datalist>
+              </div>
+              <div class="col-auto">
+                  <button type="submit" class="btn btn-primary mb-2">Confirm hardskill</button>
+              </div>
+        </form>
+    </ul>
+    <ul>
+        <h1>Технологии</h1>
+        {% get_juns_tools as tools %}
+        {% for tool in tools %}
+            <li>{{tool.tool}}</li>
+        {% endfor %}
+        <form class="row g-2" method="get">
+              <div class="col-auto">
+                  <label for="toolsInput" class="form-label">Tools</label>
+                  <input class="form-control" list="tools" name="tools" id="toolsInput" placeholder="Type to search...">
+                  <datalist id="tools">
+                        {% for tool in tools_full %}
+                          <option value="{{ tool.tool }}">
+                        {% endfor %}
+                  </datalist>
+              </div>
+              <div class="col-auto">
+                  <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+              </div>
+        </form>
+    </ul>
+</div>
+{% endblock %}

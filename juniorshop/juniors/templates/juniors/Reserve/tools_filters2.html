@@ -1,0 +1,17 @@
+<p>Tools filter</p>
+<ul class="list-group">
+    {% for tool in tools_a %}
+        <li class="list-group-item">
+        <input class="form-check-input" type="checkbox" value="{{ tool.tool }}" aria-label="..." name="tools" id="flexCheck">
+        <label class="form-check-label" for="flexCheck">{{ tool.tool }}</label>
+        </li>
+    {% endfor %}
+    {% for tool in tools %}
+        {% if tool not in tools_a %}
+            <li class="list-group-item">
+            <input class="form-check-input" type="checkbox" aria-label="" name="tools" id="flexCheckDisabled" disabled>
+            <label class="form-check-label" for="flexCheckDisabled">{{ tool.tool }}</label>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>

@@ -1,0 +1,29 @@
+<div class="cards-side__box">
+  <details open>
+    <summary class="cards-side__title cards-side__title--active">
+      Soft skills
+    </summary>
+    <div class="cards-side__inner">
+      {% for skill in softskills_a %}
+        <div class="cards-side__form-box">
+          <input type="checkbox" class="cards-side__input" name="softskills" value="{{ skill.skill }}"/>
+          <label class="cards-side__label">{{ skill.skill }}</label>
+        </div>
+      {% endfor %}
+        <details class="details">
+          <summary class="summary">15 more</summary>
+              {% for skill in softskills %}
+                  {% if skill in softskills_a %}
+                    <div class="cards-side__hidden" >
+                      <div class="cards-side__form-box">
+                      <input type="checkbox" class="cards-side__input" name="softskills"/>
+                      <label class="cards-side__label">{{ skill.skill }}</label>
+                      </div>
+                    </div>
+                  {% endif %}
+              {% endfor %}
+        </details>
+    </div>
+  <hr class="line">
+  </details>
+</div>

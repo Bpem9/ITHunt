@@ -1,0 +1,61 @@
+{% extends 'juniors/base.html' %}
+{% load jun_tags %}
+{% block content %}
+<!-------------SKILLS-FILTERS------------->
+<div class="container header">
+    <div class="row">
+        <div class="col">
+            <div class="card card-body">
+                <form method="get" id="Filters">
+                    {% filter_softskills softskills_a=softskills_a %}
+                    {% filter_hardskills hardskills_a=hardskills_a %}
+                    {% filter_tools tools_a=tools_a %}
+                    <button type="submit" class="btn btn-primary">Поиск</button>
+                <form>
+            </div>
+        </div>
+    </div>
+<!-------------SKILLS-FILTERS------------->
+
+<!-------------POSITIONS-FILTERS------------->
+    {% get_position as position %}
+    {% if pos_selected == 0 %}
+        <a href="#" role="button" class="btn btn-primary disabled">Все</a>
+    {% else %}
+        <a href="{% url 'index' %}" class="btn btn-outline-primary">Все</a>
+    {% endif %}
+  {% for pos in position %}
+      {% if pos.pk == pos_selected %}
+          <a href="#" role="button" class="btn btn-primary disabled">{{ pos.position }}</a>
+      {% else %}
+          <a href="{{ pos.get_absolute_url }}" class="btn btn-outline-primary">{{ pos.position }}</a>
+      {% endif %}
+  {% endfor %}
+<!-------------POSITIONS-FILTERS------------->
+</div>
+<!-------------CARDS------------->
+<div class="container" >
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for j in juniors %}
+            <div class="col">
+                <div class="card h-100">
+                  {% if j.url_img %}
+                  <img src="{{ j.url_img.url }}" class="card-img-top" alt="...">
+                  {% endif %}
+                  <div class="card-body">
+                    <h5 class="card-title">{{ j.first_name}} {{j.last_name }}</h5>
+                    <p class="card-text">{{ j.exp }}</p>
+                    <p class="card-text">{{ j.salary }}</p>
+                    <p class="card-text">{{ j.cat.name }}</p>
+                    <a href="{{ j.get_absolute_url }}" class="btn btn-primary">{{ j.first_name}} {{j.last_name }}</a>
+                  </div>
+                  <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                  </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<!-------------CARDS------------->
+{% endblock %}

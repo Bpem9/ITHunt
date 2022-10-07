@@ -1,0 +1,17 @@
+<p>Softskills filter</p>
+<ul class="list-group">
+    {% for skill in softskills_a %}
+        <li class="list-group-item">
+        <input class="form-check-input" type="checkbox" value="{{ skill.skill }}" aria-label="..." name="softskills" id="flexCheck">
+        <label class="form-check-label" for="flexCheck">{{ skill.skill }}</label>
+        </li>
+    {% endfor %}
+    {% for skill in softskills %}
+        {% if skill not in softskills_a %}
+            <li class="list-group-item">
+            <input class="form-check-input" type="checkbox" aria-label="" name="softskills" id="flexCheckDisabled"disabled>
+            <label class="form-check-label" for="flexCheckDisabled">{{ skill.skill }}</label>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>

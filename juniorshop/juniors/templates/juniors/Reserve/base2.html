@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link type="text/css" href="{% static 'juniors/css/bootstrap.min.css' %}" rel="stylesheet"/>
+<!--    <link type="text/css" href="{% static 'juniors/css/normalize.css' %}" rel="stylesheet"/>-->
+    <title>{{ title }}</title>
+</head>
+<body>
+<div class="container">
+    <a href="{% url 'registration' %}" role="button" class="btn btn-primary">Регистрация</a>
+    <a href="#" role="button" class="btn btn-primary">Авторизация</a>
+    <a href="{% url 'index' %}" class="btn btn-primary" role="link">Home</a>
+</div>
+{% block content %}
+
+{% endblock %}
+</body>
+</html>

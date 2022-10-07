@@ -1,0 +1,29 @@
+<div class="cards-side__box">
+  <details open>
+    <summary class="cards-side__title cards-side__title--active">
+      Tools
+    </summary>
+    <div class="cards-side__inner">
+      {% for tool in tools_a %}
+        <div class="cards-side__form-box">
+          <input type="checkbox" class="cards-side__input" name="tools" value="{{ tool.tool }}"/>
+          <label class="cards-side__label">{{ tool.tool }}</label>
+        </div>
+      {% endfor %}
+        <details class="details">
+          <summary class="summary">20 more</summary>
+              {% for tool in tools %}
+                  {% if tool in tools_a %}
+                    <div class="cards-side__hidden" >
+                      <div class="cards-side__form-box">
+                      <input type="checkbox" class="cards-side__input" name="tools"/>
+                      <label class="cards-side__label">{{ tool.tool }}</label>
+                      </div>
+                    </div>
+                  {% endif %}
+              {% endfor %}
+        </details>
+    </div>
+  <hr class="line">
+  </details>
+</div>

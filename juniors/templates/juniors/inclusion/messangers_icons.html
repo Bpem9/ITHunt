@@ -1,14 +1,14 @@
 {% load static %}
     <li class="relations__item">
-    <p class="relations__item-social__text">Способы связи</h1>
-    {% if junior.linkedin %}
-        <a href="{{ junior.linkedin }}" class="relations__item-social__link">
-            <img src="{% static 'juniors/images/linkedin.svg' %}" alt="linkedin" class="relations__item-social__img">
-        </a>
-    {% endif %}
-    {% if junior.telegram %}
-        <a href="{{ junior.telegram }}" class="relations__item-social__link">
-            <img src="{% static 'juniors/images/telegram.svg' %}" alt="telegram" class="relations__item-social__img">
-        </a>
-    {% endif %}
+        <p class="relations__item-social__text">Способы связи</p>
+        {% if junior.linkedin %}
+            <a href="{{ junior.linkedin }}" class="relations__item-social__link">
+                <img src="{% static 'juniors/images/linkedin.svg' %}" alt="linkedin" class="relations__item-social__img">
+            </a>
+        {% endif %}
+        {% if junior.telegram %}
+            <a href="{{ junior.telegram }}" class="relations__item-social__link">
+                <img src="{% static 'juniors/images/telegram.svg' %}" alt="telegram" class="relations__item-social__img">
+            </a>
+        {% endif %}
     </li>

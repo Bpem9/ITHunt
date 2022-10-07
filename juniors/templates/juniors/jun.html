@@ -2,39 +2,133 @@
 {% load static %}
 {% load jun_tags %}
 {% block content %}
-    <section class="links">
-      <div class="container">
-        <div class="links__inner">
-          <a href="{% url 'index' %}" class="links__link">Главная</a>
-          <a href="{{ junior.position.get_absolute_url }}" class="links__link">{{ junior.position.position }}</a>
+
+  <section class="links">
+    <div class="container">
+      <div class="links__inner">
+        <a href="{% url 'index' %}" class="links__link">Главная</a>
+        <a href="{{ junior.position.get_absolute_url }}" class="links__link">{{ junior.position.position }}</a>
+      </div>
+    </div>
+  </section>
+  <section class="relations">
+    <div class="container">
+      <div class="relations__inner">
+        {% if junior.url_img %}
+        <img class="relations__img" src="{{ junior.url_img.url }}" />
+        {% else %}
+        <img class="relations__img" src="{% static 'juniors/images/coder.gif' %}" />
+        {% endif %}
+        <ul class="relations__box">
+          <li class="relations__item">
+            <h4 class="relations__item-title">{{ junior.first_name }} {{ junior.last_name }}</h4>
+            <img src="{% static 'juniors/images/flag-us.svg' %}" alt="flag-us" class="relations__item-img" />
+          </li>
+          <li class="relations__item">
+            <p class="relations__item-text">{{ junior.position.position }}-специалист, {{ junior.exp }} опыта</p>
+          </li>
+          {% messangers_icons jun_slug=jun_slug %}
+        </ul>
+        <div class="relations__buttons">
+          <div class="relations__btn-like"></div>
+          <div class="relations__btn-dropmenu"></div>
         </div>
       </div>
-    </section>
-    <section class="relations">
-        <div class="container">
-            <div class="relations__inner">
-                {% if junior.url_img %}
-                    <img class="relations__img" src="{{ junior.url_img.url }}">
-                {% else %}
-                    <img class="relations__img" src="{% static 'juniors/images/coder.gif'%}">
-                {% endif %}
-                <ul class="relations__box">
-                    <li class="relations__item">
-                        <h4 class="relations__item-title">{{ junior.first_name }} {{ junior.last_name }}</h4>
-                        <img src="{% static 'juniors/images/flag-us.svg' %}" alt="flag-us" class="relations__item-img">
-                    </li>
-                    <li class="relations__item">
-                        <p class="relations__item-text">A {{ junior.position }}, {{ junior.exp }} опыта</p>
-                    </li>
-                    {% messangers_icons jun_slug=jun_slug %}
-                </ul>
-                <div class="relations__buttons">
-                    <div class="relations__btn-like">
-                    </div>
-                    <div class="relations__btn-dropmenu">
-                    </div>
-                </div>
+    </div>
+  </section>
+  <section class="card-tab">
+    <div class="container">
+      <div class="card-tabs">
+        <button class="card-tabs__link active" id="defaultOpen" onclick="openCardTab(event, 'about')">Обо мне</button>
+        <button class="card-tabs__link" onclick="openCardTab(event, 'reviews')">Отзывы</button>
+        <hr class="line" />
+      </div>
+      <div id="about" class="card-tabs__content">
+        <div class="card-tabs__top">
+          <div class="card-tabs__left">
+            <div class="card-tabs__left-info">
+              <p class="card-tabs__left-info__text">
+                Hi! My name’s Ciaran. Creating good UX design has a lot in common with telling a good story. For more than a year I have
+                been honing my professional UI/UX skills by learning and improving on my own and have successfully completed the UX/UI
+                design course.
+              </p>
             </div>
+            <ul class="card-tabs__left-list">
+              <li class="card-tabs__left-list__item">
+                <h4 class="card-tabs__left-list__item-title">Hard skills</h4>
+                <div class="card-tabs__left-list__item-skillbox">
+                  {% get_juns_hardskills as hardskills %}
+                  {% for skill in hardskills %}
+                  <p class="card-tabs__left-list__item-skill">{{ skill.skill }}</p>
+                {% endfor %}
+                </div>
+              </li>
+
+              <li class="card-tabs__left-list__item">
+                <h4 class="card-tabs__left-list__item-title">Soft skills</h4>
+                <div class="card-tabs__left-list__item-skillbox">
+                {% get_juns_softskills as softskills %}
+                {% for skill in softskills %}
+                  <p class="card-tabs__left-list__item-skill">{{ skill.skill }}</p>
+                {% endfor %}
+                </div>
+              </li>
+
+              <li class="card-tabs__left-list__item">
+                <h4 class="card-tabs__left-list__item-title">Tools</h4>
+                <div class="card-tabs__left-list__item-skillbox">
+                {% get_juns_tools as tools %}
+                {% for tool in tools %}
+                  <p class="card-tabs__left-list__item-skill">{{ tool.tool }}</p>
+                {% endfor %}
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="card-tabs__right"></div>
         </div>
-    </section>
+        <div class="card-tabs__work">
+          <h4 class="card-tabs__work__title">Work Experience</h4>
+          <div class="card-tabs__work__content">
+            <div class="card-tabs__work__content-left">
+              <img src="{% static 'juniors/images/workPic.png' %}" alt="workpic" class="card-tabs__work__content-img" />
+              <div class="card-tabs__work__content-box">
+                <p class="card-tabs__work__content-title">UX/UI Designer</p>
+                <p class="card-tabs__work__content-text">General Assembly</p>
+                <img class="card-tabs__work__content-textImg" alt="dot" src="{% static 'juniors/images/dot.svg' %}" />
+                <p class="card-tabs__work__content-text">Apprenticeship</p>
+              </div>
+            </div>
+            <div class="card-tabs__work__content-right">
+              <p class="card-tabs__work__content-right__text">Dec 2020 — Present</p>
+              <a href="#" class="card-tabs__work__content-right__link">SHOW MORE</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-tabs__work">
+          <h4 class="card-tabs__work__title">Education</h4>
+          <div class="card-tabs__work__content">
+            <div class="card-tabs__work__content-left">
+              <img src="{% static 'juniors/images/workPic.png' %}" alt="workpic" class="card-tabs__work__content-img" />
+              <div class="card-tabs__work__content-box">
+                <p class="card-tabs__work__content-title">General Assembly</p>
+                <p class="card-tabs__work__content-text">UI/UX Design</p>
+                <img class="card-tabs__work__content-textImg" alt="dot" src="{% static 'juniors/images/dot.svg' %}" />
+                <p class="card-tabs__work__content-text">Apprenticeship</p>
+              </div>
+            </div>
+            <div class="card-tabs__work__content-right">
+              <p class="card-tabs__work__content-right__text">Dec 2020 — Present</p>
+              <a href="#" class="card-tabs__work__content-right__link">SHOW MORE</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="reviews" class="card-tabs__content">
+        <h1>REVIEWS</h1>
+      </div>
+    </div>
+  </section>
 {% endblock %}
+
+

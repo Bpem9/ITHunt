@@ -40,7 +40,7 @@
               <div class="cards-content__hidden">
                 <ul class="cards-content__hidden-list">
                   <li class="cards-content__hidden-item">
-                    <a class="cards-content__hidden-link" href="#" >По алфавиту</a>
+                    <a class="cards-content__hidden-link" href="#">По алфавиту</a>
                   </li>
                   <li class="cards-content__hidden-item">
                     <a class="cards-content__hidden-link" href="#">По рейтингу</a>
@@ -89,7 +89,11 @@
               </li>
               {% cardskillsquery j=j %}
               <li class="card-bottom__item">
+                {% if j.slug == user.junior.slug %}
+                <a href="{% url 'profile' %}" class="card-bottom__show">Посмотреть весь профиль</a>
+                {% else %}
                 <a href="{{ j.get_absolute_url }}" class="card-bottom__show">Посмотреть весь профиль</a>
+                {% endif %}
               </li>
             </ul>
           </div>

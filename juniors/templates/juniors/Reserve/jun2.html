@@ -1,76 +1,40 @@
 {% extends 'juniors/base.html' %}
+{% load static %}
 {% load jun_tags %}
 {% block content %}
-<div class="container">
-    <h1>Страница джуна: {{ junior.first_name }} {{ junior.last_name }}</h1>
-    <!--{% if junior.photo %}-->
-    <!--<p><img class="img-article-left" src="{{ junior.photo.url }}"></p>-->
-    <!--{% endif %}-->
-    <p>Зарплата: {{junior.salary}}</p>
-    <p>Опыт работы: {{junior.exp}}</p>
-    {% messangers_icons jun_slug=jun_slug %}
-    <ul>
-        <h1>Мягкие навыки</h1>
-        {% get_juns_softskills as junsoftskills %}
-        {% for skill in junsoftskills %}
-            <li>{{skill.skill}}</li>
-        {% endfor %}
-        <form class="row g-2" method="get">
-              <div class="col-auto">
-                  <label for="softInput" class="form-label">Softskills</label>
-                  <input class="form-control" list="softskills" name="softskills" id="softInput" placeholder="Type to search...">
-                  <datalist id="softskills">
-                        {% for skill in softskills_full %}
-                          <option value="{{ skill.skill }}">
-                        {% endfor %}
-                  </datalist>
-              </div>
-              <div class="col-auto">
-                  <button type="submit" class="btn btn-primary mb-2">Confirm softskill</button>
-              </div>
-        </form>
-    </ul>
-    <ul>
-        <h1>Жесткие навыки</h1>
-        {% get_juns_hardskills as hardskills %}
-        {% for hdskill in hardskills %}
-            <li>{{hdskill.skill}}</li>
-        {% endfor %}
-        <form class="row g-2">
-              <div class="col-auto">
-                  <label for="hardInput" class="form-label">Hardskills</label>
-                  <input class="form-control" list="hardskills" name="hardskills" id="hardInput" placeholder="Type to search...">
-                  <datalist id="hardskills">
-                        {% for skill in hardskills_full %}
-                          <option value="{{ skill.skill }}">
-                        {% endfor %}
-                  </datalist>
-              </div>
-              <div class="col-auto">
-                  <button type="submit" class="btn btn-primary mb-2">Confirm hardskill</button>
-              </div>
-        </form>
-    </ul>
-    <ul>
-        <h1>Технологии</h1>
-        {% get_juns_tools as tools %}
-        {% for tool in tools %}
-            <li>{{tool.tool}}</li>
-        {% endfor %}
-        <form class="row g-2" method="get">
-              <div class="col-auto">
-                  <label for="toolsInput" class="form-label">Tools</label>
-                  <input class="form-control" list="tools" name="tools" id="toolsInput" placeholder="Type to search...">
-                  <datalist id="tools">
-                        {% for tool in tools_full %}
-                          <option value="{{ tool.tool }}">
-                        {% endfor %}
-                  </datalist>
-              </div>
-              <div class="col-auto">
-                  <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
-              </div>
-        </form>
-    </ul>
-</div>
+    <section class="links">
+      <div class="container">
+        <div class="links__inner">
+          <a href="{% url 'index' %}" class="links__link">Главная</a>
+          <a href="{{ junior.position.get_absolute_url }}" class="links__link">{{ junior.position.position }}</a>
+        </div>
+      </div>
+    </section>
+    <section class="relations">
+        <div class="container">
+            <div class="relations__inner">
+                {% if junior.url_img %}
+                    <img class="relations__img" src="{{ junior.url_img.url }}">
+                {% else %}
+                    <img class="relations__img" src="{% static 'juniors/images/coder.gif'%}">
+                {% endif %}
+                <ul class="relations__box">
+                    <li class="relations__item">
+                        <h4 class="relations__item-title">{{ junior.first_name }} {{ junior.last_name }}</h4>
+                        <img src="{% static 'juniors/images/flag-us.svg' %}" alt="flag-us" class="relations__item-img">
+                    </li>
+                    <li class="relations__item">
+                        <p class="relations__item-text">A {{ junior.position }}, {{ junior.exp }} опыта</p>
+                    </li>
+                    {% messangers_icons jun_slug=jun_slug %}
+                </ul>
+                <div class="relations__buttons">
+                    <div class="relations__btn-like">
+                    </div>
+                    <div class="relations__btn-dropmenu">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

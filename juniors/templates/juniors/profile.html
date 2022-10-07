@@ -5,35 +5,21 @@
 <section class="tab">
   <div class="container">
     <div class="tabs">
-      <a href="{% url 'index' %}" class="tabs-link"> Главная </a>
-      <button
-        class="tabs-link active active"
-        onclick="openTab(event, 'profile')"
-        id="defaultOpen"
-      >
-        Мой профиль
-      </button>
-      <button class="tabs-link" onclick="openTab(event, 'reservations')">
-        Бронирования
-      </button>
-      <button class="tabs-link" onclick="openTab(event, 'messages')">
-        Сообщения
-      </button>
+      <a href="{% url 'index' %}" class="links__link">Главная</a>
+      <button class="tabs-link active active" onclick="openTab(event, 'profile')" id="defaultOpen">Мой профиль</button>
+      <button class="tabs-link" onclick="openTab(event, 'reservations')">Бронирования</button>
+      <button class="tabs-link" onclick="openTab(event, 'messages')">Сообщения</button>
     </div>
     <div id="main" class="tab-content main"></div>
     <div id="profile" class="tab-content profile">
       <div class="profile__header">
         {% if user.junior.url_img %}
-        <img class="profile__header-img" src="{{ user.junior.url_img.url }}">
+        <img class="profile__header-img" src="{{ user.junior.url_img.url }}" alt="account" />
         {% else %}
-        <img
-          class="profile__header-img"
-          src="{% static 'juniors/images/coder.gif' %}"
-          alt="account"
-        />
+        <img class="profile__header-img" src="{% static 'juniors/images/account.png' %}" alt="account" />
         {% endif %}
         <div class="profile__header-info">
-          <h3 class="profile__header-text">{{ user.junior.first_name }} {{ user.junior.last_name }}</h3>
+          <h3 class="profile__header-text">{{ junior.first_name }} {{ junior.last_name }}</h3>
           <a href="#" class="profile__header-btn">Редактировать профиль</a>
         </div>
       </div>
@@ -41,35 +27,33 @@
         <ul class="profile__main-list">
           <li class="profile__main-item">
             <p class="profile__main-name">Роль</p>
-            <p class="profile__main-descr">IT Recruiter at StarSoft</p>
+            <p class="profile__main-descr">{{ user.junior.position.position }}</p>
           </li>
-                    <li class="profile__main-item">
+          <li class="profile__main-item">
             <p class="profile__main-name">Языки</p>
             <p class="profile__main-lang">Английский</p>
             <p class="profile__main-lang">Испанский</p>
           </li>
+          <!-- <li class="profile__main-item">
+            <p class="profile__main-name">Зарплатная вилка соискателя</p>
+            <p class="profile__main-lang">€41K / €51K</p>
+          </li> -->
           <li class="profile__main-item">
             <p class="profile__main-name">Способы связи со мной</p>
-            {% if user.junior.linkedin %}
-              <p class="profile__main-social">
-                <a href="{{ user.junior.linkedin }}" class="relations__item-social__link">
-                <img
-                  class="profile__main-social__img"
-                  src="{% static 'juniors/images/linkedin.svg' %}"
-                  alt="linkedin"
-                />
-              </p>
-            {% endif %}
-            {% if user.junior.telegram %}
-              <p class="profile__main-social">
-                <a href="{{ user.junior.telegram }}" class="relations__item-social__link">
-                <img
-                  class="profile__main-social__img"
-                  src="{% static 'juniors/images/telegram.svg' %}"
-                  alt="telegram"
-                />
-              </p>
-            {% endif %}
+            <p class="profile__main-social">
+              {% if user.junior.linkedin %}
+              <a href="{{ user.junior.linkedin }}" class="profile__main-social__link">
+              <img class="profile__main-social__img" src="{% static 'juniors/images/linkedin.svg' %}" alt="linkedin" />
+              </a>
+              {% endif %}
+            </p>
+            <p class="profile__main-social">
+              {% if user.junior.telegram %}
+              <a href="{{ user.junior.telegram }}" class="profile__main-social__link">
+              <img class="profile__main-social__img" src="{% static 'juniors/images/telegram.svg' %}" alt="telegram" />
+              </a>
+              {% endif %}
+            </p>
             <button class="profile__main-btn btn">Добавить</button>
           </li>
           <li class="profile__main-item">
@@ -111,28 +95,45 @@ Hi! My name’s Zmicer. I work for a company called StarSoft. We’re looking fo
           <h4 class="profile__main-work__title">Work Experience</h4>
           <div class="profile__main-work__content">
             <div class="profile__main-work__content-left">
-              <img
-                src="images/workPic.png"
-                alt="workpic"
-                class="profile__main-work__content-img"
-              />
+              <img src="{% static 'juniors/images/workPic.png' %}" alt="workpic" class="profile__main-work__content-img" />
               <div class="profile__main-work__content-box">
-                <p class="profile__main-work__content-title">
-                  IT Recruiter
-                </p>
+                <p class="profile__main-work__content-title">IT Recruiter</p>
                 <p class="profile__main-work__content-text">StarSoft</p>
-                <img
-                  class="profile__main-work__content-textImg"
-                  alt="dot"
-                  src="images/dot.svg"
-                />
+                <img class="profile__main-work__content-textImg" alt="dot" src="{% static 'juniors/images/dot.svg' %}" />
                 <p class="profile__main-work__content-text">Full-time</p>
               </div>
             </div>
             <div class="profile__main-work__content-right">
-              <p class="profile__main-work__content-right__text">
-                Dec 2020 — Present
-              </p>
+              <p class="profile__main-work__content-right__text">Dec 2020 — Present</p>
+            </div>
+            <div class="profile__main-work__content-workedit">
+              <button class="profile__main-work__content-workedit__btn">Редактировать</button>
+              <div class="profile__main-work__content-workhidden">
+                <div class="profile__main-work__content-workhidden__inner">
+                  <h4 class="profile__main-work__content-workhidden__title">Редактировать мой опыт</h4>
+                  <form class="profile__main-work__content-workhidden__form" action="#">
+                    <label class="profile__main-work__content-workhidden__name" for="#">Роль</label>
+                    <input class="profile__main-work__content-workhidden__input" type="text" />
+                    <label class="profile__main-work__content-workhidden__name" for="#">Компания</label>
+                    <input class="profile__main-work__content-workhidden__input" type="text" />
+                    <label class="profile__main-work__content-workhidden__name" for="#">Вид занятости</label>
+                    <select class="profile__main-work__content-workhidden__select">
+                      <option value="1" class="profile__main-work__content-workhidden__select-option">Full-time</option>
+                      <option value="2" class="profile__main-work__content-workhidden__select-option">Part-time</option>
+                      <option value="3" class="profile__main-work__content-workhidden__select-option">Mixed</option>
+                    </select>
+
+                    <div class="profile__main-work__content-workhidden__box">
+                      <input type="checkbox" class="profile__main-work__content-workhidden__checkbox" />
+                      <label class="profile__main-work__content-workhidden__checkbox-label">Я все еще тут работаю </label>
+                    </div>
+                  </form>
+                  <div class="profile__main-work__content-workhidden__btnbox">
+                    <button class="profile__main-work__content-workhidden__btnbox__save">Сохранить</button>
+                    <button class="profile__main-work__content-workhidden__btnbox__del">Удалить</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <button class="profile__main-workbtn btn">Добавить</button>
@@ -141,30 +142,40 @@ Hi! My name’s Zmicer. I work for a company called StarSoft. We’re looking fo
           <h4 class="profile__main-work__title">Education</h4>
           <div class="profile__main-work__content">
             <div class="profile__main-work__content-left">
-              <img
-                src="images/workPic.png"
-                alt="workpic"
-                class="profile__main-work__content-img"
-              />
+              <img src="{% static 'juniors/images/workPic.png' %}" alt="workpic" class="profile__main-work__content-img" />
               <div class="profile__main-work__content-box">
-                <p class="profile__main-work__content-title">
-                  University of Gdansk
-                </p>
+                <p class="profile__main-work__content-title">University of Gdansk</p>
                 <p class="profile__main-work__content-text">Management</p>
-                <img
-                  class="profile__main-work__content-textImg"
-                  alt="dot"
-                  src="images/dot.svg"
-                />
-                <p class="profile__main-work__content-text">
-                  Bachelor’s degree
-                </p>
+                <img class="profile__main-work__content-textImg" alt="dot" src="{% static 'juniors/images/dot.svg' %}" />
+                <p class="profile__main-work__content-text">Bachelor’s degree</p>
               </div>
             </div>
             <div class="profile__main-work__content-right">
-              <p class="profile__main-work__content-right__text">
-                Dec 2020 — Dec 2020
-              </p>
+              <p class="profile__main-work__content-right__text">Dec 2020 — Dec 2020</p>
+            </div>
+            <div class="profile__main-work__content-eduedit">
+              <button class="profile__main-work__content-eduedit__btn">Редактировать</button>
+              <div class="profile__main-work__content-eduhidden">
+                <div class="profile__main-work__content-eduhidden__inner">
+                  <h4 class="profile__main-work__content-eduhidden__title">Редактировать образование</h4>
+                  <form class="profile__main-work__content-eduhidden__form" action="#">
+                    <label class="profile__main-work__content-eduhidden__name" for="#">Учебное заведение</label>
+                    <input class="profile__main-work__content-eduhidden__input" type="text" />
+                    <label class="profile__main-work__content-eduhidden__name" for="#">Специальность</label>
+                    <input class="profile__main-work__content-eduhidden__input" type="text" />
+                    <label class="profile__main-work__content-eduhidden__name" for="#">Степень</label>
+                    <select class="profile__main-work__content-eduhidden__select">
+                      <option value="1" class="profile__main-work__content-eduhidden__select-option">Бакалавр</option>
+                      <option value="2" class="profile__main-work__content-eduhidden__select-option">Специалист</option>
+                      <option value="3" class="profile__main-work__content-eduhidden__select-option">Магистр</option>
+                    </select>
+                  </form>
+                  <div class="profile__main-work__content-eduhidden__btnbox">
+                    <button class="profile__main-work__content-eduhidden__btnbox__save">Сохранить</button>
+                    <button class="profile__main-work__content-eduhidden__btnbox__del">Удалить</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <button class="profile__main-workbtn btn">Добавить</button>
@@ -176,4 +187,3 @@ Hi! My name’s Zmicer. I work for a company called StarSoft. We’re looking fo
   </div>
 </section>
 {% endblock %}
-

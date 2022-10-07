@@ -70,7 +70,6 @@ class JuniorsView(ListView):
         search = SearchFilter(self.request.GET, queryset=Junior.objects.all())
         sfkl = self.request.GET.getlist('softskills')
         hdkl = self.request.GET.getlist('hardskills')
-        print('='*10, hdkl, '='*10)
         tlls = self.request.GET.getlist('tools')
         if search.qs:
             juniors = search.qs
@@ -130,7 +129,6 @@ class JuniorProfile(DetailView):
         return context
 
     def get_object(self, queryset=None):
-        # print('='*10, self.request.session.__dir__(), '='*10)
         return self.request.user
 
 

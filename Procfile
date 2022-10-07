@@ -1,1 +1,1 @@
-web: gunicorn juniorshop.wsgi --log-file -
+web: gunicorn juniorshop.juniorshop.wsgi --log-file -

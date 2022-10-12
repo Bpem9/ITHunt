@@ -72,7 +72,7 @@
                   {% csrf_token %}
                   <div class="">{{ hardskillup.non_field_errors }}</div>
                   <p class="profile__main-skill">{{ skill.skill }}</p>
-                  <button type="submit" class="btn-close" aria-label="Close">x</button>
+                  <button type="button" class="btn-close" aria-label="Close">x</button>
                 </form>
                 {% endfor %}
                 <form class="" name="hardskill" method="post">

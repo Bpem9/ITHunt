@@ -40,7 +40,7 @@ class Junior(models.Model):
     language = models.CharField(max_length=100, null=True, verbose_name='Языки')
     salary = models.IntegerField(null=True)
     password=models.CharField(max_length=50, null=True, verbose_name='Пароль')
-    # sfskills = models.ForeignKey('SoftSkills', null=True, on_delete=models.PROTECT, verbose_name='Софт-скиллы')
+    sfskills = models.ManyToManyField('SoftSkills', null=True, verbose_name='Софт-скиллы')
     # hdskills = models.ForeignKey('Hardskills', null=True, on_delete=models.PROTECT, verbose_name='Хард-скиллы')
     # tlls = models.ForeignKey('Tools', null=True, on_delete=models.PROTECT, verbose_name='Стек технологий')
 
@@ -116,6 +116,8 @@ class JuniorSoftskills(models.Model):
 
     def __str__(self):
         return f'{self.junior} - {self.softskill}'
+    def get_absolute_url(self):
+        return reverse('profile')
 
 # ===========================
 

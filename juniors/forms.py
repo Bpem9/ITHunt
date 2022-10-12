@@ -16,3 +16,26 @@ class UserRegForm(UserCreationForm):
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={}))
+
+class JunUpdatingForm(forms.ModelForm):
+    class Meta:
+        model = Junior
+        exclude = ['username', 'password', 'phone']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'profile__header-text'}),
+            'position': forms.SelectMultiple(attrs={'class': 'profile__main-descr'}),
+            }
+
+
+class SoftSkillsUpdate(forms.ModelForm):
+    class Meta:
+        model = JuniorSoftskills
+        fields = ['softskill']
+class HardskillsUpdate(forms.ModelForm):
+    class Meta:
+        model = JuniorHardskills
+        fields = ['hardskill']
+class ToolsUpdate(forms.ModelForm):
+    class Meta:
+        model = JuniorTools
+        fields = ['tool']

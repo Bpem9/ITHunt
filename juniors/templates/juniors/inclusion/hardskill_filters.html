@@ -10,17 +10,11 @@
           <label class="cards-side__label">{{ skill.skill }}</label>
         </div>
       {% endfor %}
+      {% if hardskills_a.count > 5 %}
         <details class="details">
-          <summary class="summary">20 more</summary>
-              {% for skill in hardskills %}
-                  {% if not skill in hardskills_a %}
-                      <div class="cards-side__form-box">
-                      <input type="checkbox" class="cards-side__input" name="hardskills"/>
-                      <label class="cards-side__label">{{ skill.skill }}</label>
-                      </div>
-                  {% endif %}
-              {% endfor %}
+          <summary class="summary">{{ hardskills_a.count|add:"-5" }} more</summary>
         </details>
+      {% endif %}
     </div>
   <hr class="line">
   </details>

@@ -1,0 +1,10 @@
+{% extends 'juniors/base.html' %}
+{% load static %}
+{% load jun_tags %}
+{% block content %}
+<form class="" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="update">
+</form>
+{% endblock %}

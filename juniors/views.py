@@ -2,6 +2,7 @@ from django.shortcuts import render, reverse, redirect
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
+from django.views.generic.edit import FormMixin
 
 from .models import *
 from .filters import *
@@ -9,9 +10,10 @@ from .GdrvtoSQL.stuff import lst_juns, hrds, tolls, sfts, poss, countries
 from slugify import slugify
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.forms import UserCreationForm
 from .forms import *
+from django.db.models import Q
 
 
 
@@ -29,6 +31,7 @@ class JuniorPage(DetailView):
         context['softskills_full'] = SoftSkills.objects.all()
         context['hardskills_full'] = Hardskills.objects.all()
         context['tools_full'] = Tools.objects.all()
+        context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
         return context
     def get_queryset(self):
         sfkl = self.request.GET.getlist('softskills')
@@ -41,13 +44,14 @@ class JuniorsView(ListView):
     template_name = 'juniors/index.html'
     context_object_name = 'juniors'
 
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['pos_selected'] = 0
         context['softskills_a'] = SoftSkills.objects.filter(jun__in=context['object_list']).distinct()
         context['tools_a'] = Tools.objects.filter(jun__in=context['object_list']).distinct()
         context['hardskills_a'] = Hardskills.objects.filter(jun__in=context['object_list']).distinct()
-        context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
+        context['search'] = SearchFilter(self.request.GET, queryset=context['object_list'])
         return context
 
     def get_queryset(self):
@@ -67,6 +71,7 @@ class JuniorsView(ListView):
         #     Country(country=coun, slug=slugify(coun)).save()
         # Заполнение БД из файла GdrvtoSQL (из таблицы google-drive), запускать один раз, в случае, если нужно пересоздать БД базового состояния
         # <------------------- БДшка------------------->
+        juniors = Junior.objects.all()
         search = SearchFilter(self.request.GET, queryset=Junior.objects.all())
         sfkl = self.request.GET.getlist('softskills')
         hdkl = self.request.GET.getlist('hardskills')
@@ -98,17 +103,17 @@ class JuniorsPosition(ListView):
         context['tools_a'] = Tools.objects.filter(jun__in=context['object_list']).distinct()
         context['hardskills_a'] = Hardskills.objects.filter(jun__in=context['object_list']).distinct()
         context['pos_selected'] = self.kwargs['pos_id']
-        context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
+        context['search'] = SearchFilter(self.request.GET, queryset=context['object_list'])
         return context
 
     def get_queryset(self):
         juniors = Junior.objects.filter(position_id=self.kwargs['pos_id'])
         search = SearchFilter(self.request.GET, queryset=juniors)
-        if search.qs:
-            juniors = search.qs
         sfkl = self.request.GET.getlist('softskills')
         hdkl = self.request.GET.getlist('hardskills')
         tlls = self.request.GET.getlist('tools')
+        if search.qs:
+            juniors = search.qs
         if sfkl:
             juniors = juniors.filter(softskills__skill__in=sfkl)
         if hdkl:
@@ -119,17 +124,87 @@ class JuniorsPosition(ListView):
 
 
 class JuniorProfile(DetailView):
-    model = User
+    model = Junior
+    fields = '__all__'
     template_name = 'juniors/profile.html'
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Профиль'
+        context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
+        # instance = JuniorSoftskills(junior=self.request.user, softskill=SoftSkills.objects.get(id=self.request.POST.get('softskills')))
+        context['softskillsup'] = SoftSkillsUpdate
+        context['hardskillup'] = HardskillsUpdate
+        context['toolsup'] = ToolsUpdate
         return context
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('hardskill'):
+            instance = JuniorHardskills(junior=self.request.user.junior, hardskill=Hardskills.objects.get(id=self.request.POST.get('hardskill')))
+            form = HardskillsUpdate(self.request.POST, instance=instance)
+            print(form.errors)
+            if form.is_valid():
+                try:
+                    form.save()
+                except Exception as e:
+                    form.add_error(None, e.__cause__)
+                finally:
+                    return redirect('profile')
+        elif request.POST.get('softskill'):
+            instance = JuniorSoftskills(junior=self.request.user.junior, softskill=SoftSkills.objects.get(id=self.request.POST.get('softskill')))
+            form = SoftSkillsUpdate(request.POST, instance=instance)
+            if form.is_valid():
+                try:
+                    form.save()
+                    return redirect('profile')
+                except Exception as e:
+                    form.add_error(None, e.__cause__)
+                finally:
+                    return redirect('profile')
+            else:
+                return redirect('profile')
+
+
+        elif request.POST.get('tool'):
+            instance = JuniorTools(junior=self.request.user.junior, tool=Tools.objects.get(id=self.request.POST.get('tool')))
+            form = ToolsUpdate(self.request.POST, instance=instance)
+            print(form.errors)
+            if form.is_valid():
+                try:
+                    form.save()
+                    return redirect('profile')
+                except Exception as e:
+                    form.add_error(None, e.__cause__)
+                finally:
+                    return redirect('profile')
+            else:
+                return redirect('profile')
+
+        elif request.POST.get('del'):
+            print('del работает')
+            return render(HttpResponse('del работает'))
 
     def get_object(self, queryset=None):
         return self.request.user
+
+class JuniorUpdate(UpdateView):
+    model = Junior
+    form_class = JunUpdatingForm
+    # fields = '__all__'
+    # exclude = ['password', 'user']
+    template_name = 'juniors/profile_update.html'
+    slug_url_kwarg = 'jun_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
+        return context
+    def post(self, request, *args, **kwargs):
+        form = JunUpdatingForm(request.POST)
+        if form.is_valid():
+            print(form)
+            form.save()
+        return redirect('profile')
 
 
 class RegisterJunior(CreateView):
@@ -140,7 +215,23 @@ class RegisterJunior(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Страница регистрации'
+        context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
         return context
+
+
+# class JuniorsSearch(ListView):
+#     model = Junior
+#     template_name = 'juniors/index.html'
+#
+#     def get_queryset(self):
+#         search = SearchFilter(self.request.POST, queryset=Junior.objects.all())
+#         if search.qs:
+#             return redirect('searchresults')
+#
+#     def dispatch(self, request, *args, **kwargs):
+#         if request.POST.get('q'):
+#             return redirect('searchresults')
+
 
 class LoginUser(LoginView):
     form_class = LoginUserForm
@@ -149,6 +240,7 @@ class LoginUser(LoginView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Авторизация'
+        context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
         return context
     def get_success_url(self):
         return reverse_lazy('index')

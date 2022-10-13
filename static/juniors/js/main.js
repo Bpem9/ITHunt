@@ -43,7 +43,7 @@ $(function () {
   })
   let val1 = +$('#amount1').text()
   let val2 = +$('#amount2').text()
-  console.log(val1)
+  // console.log(val1)
   $('#slider-range').slider({
     range: true,
     min: val1,
@@ -55,6 +55,34 @@ $(function () {
     },
   })
   $('#amount').val('$' + $('#slider-range').slider('values', 0) + ' - $' + $('#slider-range').slider('values', 1))
+
+  let dt = new AirDatepicker('#datepicker', {
+    isMobile: true,
+    altField: '#datefield',
+    altFieldDateFormat: 'yyyy-MM-dd',
+  })
+  // console.log(dt)
+})
+
+let days = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
+let d = new Date()
+let n = d.getDay()
+let dayTime = days[n] + ','
+// console.log(dayTime)
+let date = new Date()
+let month = date.getMonth()
+let monthes = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+let number = date.getDate()
+// if (number < 10) {
+//   number = '0' + number
+// }
+
+let fullDate = dayTime + ' ' + number + ' ' + monthes[month]
+console.log(fullDate)
+$('.card-tabs__timepicker-title').text(fullDate)
+
+$('.card-tabs__timepicker-list__item').on('click', function () {
+  $(this).toggleClass('active')
 })
 
 function openTab(evt, tabName) {

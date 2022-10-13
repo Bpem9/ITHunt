@@ -18,12 +18,15 @@ class LoginUserForm(AuthenticationForm):
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={}))
 
 class JunUpdatingForm(forms.ModelForm):
+
     class Meta:
         model = Junior
-        exclude = ['username', 'password', 'phone']
+        fields = ['first_name', 'last_name', 'description', 'position']
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'profile__header-text'}),
-            'position': forms.SelectMultiple(attrs={'class': 'profile__main-descr'}),
+            'last_name': forms.TextInput(attrs={'class': 'profile__header-text'}),
+            # 'position': forms.CheckboxSelectMultiple(attrs={'class': 'profile__main-descr'}),
+            'description': forms.Textarea(attrs={'class': 'profile__main-textarea'}),
             }
 
 

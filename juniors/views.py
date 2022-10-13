@@ -2,7 +2,7 @@ from django.shortcuts import render, reverse, redirect
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic.edit import FormMixin
+from django.views.generic.edit import FormMixin, ModelFormMixin
 
 from .models import *
 from .filters import *
@@ -123,9 +123,10 @@ class JuniorsPosition(ListView):
         return juniors
 
 
-class JuniorProfile(DetailView):
+class JuniorProfile(ModelFormMixin, DetailView):
     model = Junior
-    fields = '__all__'
+    form_class = JunUpdatingForm
+    # fields = '__all__'
     template_name = 'juniors/profile.html'
 
     def get_context_data(self, **kwargs):
@@ -139,6 +140,24 @@ class JuniorProfile(DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
+        if request.POST.get('first_name'):
+            jun = Junior.objects.get(slug=request.user.junior.slug)
+            form = JunUpdatingForm(request.POST, instance=jun)
+            if form.is_valid():
+                form.save()
+                # jun = Junior.objects.get(slug=request.user.junior.slug)
+                # for field in form.changed_data:
+                #     jun.field = form.data[field]
+                #
+                #     jun.save()
+                #     print(jun.field)
+                # print(jun)
+                return redirect('profile')
+            else:
+                print('='*10, form.errors, '='*10)
+                return redirect('profile')
+
+
         if request.POST.get('hardskill'):
             instance = JuniorHardskills(junior=self.request.user.junior, hardskill=Hardskills.objects.get(id=self.request.POST.get('hardskill')))
             form = HardskillsUpdate(self.request.POST, instance=instance)
@@ -184,6 +203,15 @@ class JuniorProfile(DetailView):
             print('del работает')
             return render(HttpResponse('del работает'))
 
+    def get_initial(self):
+        initial = super().get_initial()
+        jun = self.request.user.junior
+        initial['first_name'] = jun.first_name
+        initial['last_name'] = jun.last_name
+        initial['position'] = jun.position
+        initial['description'] = jun.description
+        return initial
+
     def get_object(self, queryset=None):
         return self.request.user
 
@@ -210,13 +238,21 @@ class JuniorUpdate(UpdateView):
 class RegisterJunior(CreateView):
     form_class = UserRegForm
     template_name = 'juniors/registration.html'
-    success_url = reverse_lazy('index')
+    # success_url = reverse_lazy('profile')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Страница регистрации'
         context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = UserRegForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+        else:
+            form = UserRegForm()
 
 
 # class JuniorsSearch(ListView):

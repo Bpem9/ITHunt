@@ -48,9 +48,7 @@
           <div class="card-tabs__left">
             <div class="card-tabs__left-info">
               <p class="card-tabs__left-info__text">
-                Hi! My name’s Ciaran. Creating good UX design has a lot in common with telling a good story. For more than a year I have
-                been honing my professional UI/UX skills by learning and improving on my own and have successfully completed the UX/UI
-                design course.
+                {{ junior.description }}
               </p>
             </div>
             <ul class="card-tabs__left-list">
@@ -85,7 +83,34 @@
               </li>
             </ul>
           </div>
-          <div class="card-tabs__right"></div>
+          <div class="card-tabs__right">
+            <div class="card-tabs__right-box">
+              <h4 class="card-tabs__right-box__title">Выберите дату и время</h4>
+              <div class="card-tabs__right-box__datetime">
+                <div id="datepicker" class="card-tabs__datepicker"></div>
+                <div class="card-tabs__timepicker">
+                  <h5 class="card-tabs__timepicker-title"></h5>
+                  <ul class="card-tabs__timepicker-list">
+                    <li class="card-tabs__timepicker-list__item">
+                      <a class="card-tabs__timepicker-list__item-time">11:00 AM</a>
+                    </li>
+                    <li class="card-tabs__timepicker-list__item">
+                      <a class="card-tabs__timepicker-list__item-time">12:00 PM</a>
+                    </li>
+                    <li class="card-tabs__timepicker-list__item">
+                      <a class="card-tabs__timepicker-list__item-time">13:00 PM</a>
+                    </li>
+                    <li class="card-tabs__timepicker-list__item">
+                      <a class="card-tabs__timepicker-list__item-time">15:00 PM</a>
+                    </li>
+                  </ul>
+                </div>
+                <input id="datefield" type="text" hidden />
+              </div>
+
+              <a class="card-tabs__right-box__btn">Забронировать</a>
+              </div>
+          </div>
         </div>
         <div class="card-tabs__work">
           <h4 class="card-tabs__work__title">Work Experience</h4>

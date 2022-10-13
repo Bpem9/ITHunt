@@ -32,7 +32,7 @@ class Junior(models.Model):
     email = models.CharField(max_length=100, null=True, verbose_name='Электронная почта')
     phone = models.CharField(max_length=20, null=True, verbose_name='Номер телефона')
     url_img = models.ImageField(upload_to="photos/%Y/%m/%d", null=True, verbose_name='Фото')
-    descr = models.TextField(null=True, verbose_name='Описание')
+    description = models.TextField(null=True, verbose_name='Описание')
     position = models.ForeignKey('Position', null=True, on_delete=models.PROTECT)
     country = models.ForeignKey('Country', null=True, on_delete=models.PROTECT)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -40,7 +40,7 @@ class Junior(models.Model):
     language = models.CharField(max_length=100, null=True, verbose_name='Языки')
     salary = models.IntegerField(null=True)
     password=models.CharField(max_length=50, null=True, verbose_name='Пароль')
-    sfskills = models.ManyToManyField('SoftSkills', null=True, verbose_name='Софт-скиллы')
+    # sfskills = models.ManyToManyField('SoftSkills', null=True, verbose_name='Софт-скиллы')
     # hdskills = models.ForeignKey('Hardskills', null=True, on_delete=models.PROTECT, verbose_name='Хард-скиллы')
     # tlls = models.ForeignKey('Tools', null=True, on_delete=models.PROTECT, verbose_name='Стек технологий')
 

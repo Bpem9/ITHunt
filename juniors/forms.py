@@ -41,10 +41,10 @@ class ToolsUpdate(forms.ModelForm):
         model = JuniorTools
         fields = ['tool']
 
-class OrderForm(forms.Form):
-    CHOICES = (
-        ('first_name', 'По алфавиту'),
-        ('salary', 'По зарплату'),
-        ('country', 'По локации'),
-    )
-    order = forms.ChoiceField(choices=CHOICES)
+# class OrderForm(forms.Form):
+#     CHOICES = (
+#         ('first_name', 'По алфавиту'),
+#         ('salary', 'По зарплате'),
+#         ('country', 'По локации'),
+#     )
+#     order = forms.ChoiceField(choices=CHOICES)

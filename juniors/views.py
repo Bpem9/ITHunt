@@ -72,7 +72,6 @@ class JuniorsPosition(SkillsFilters, ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Страница категории'
         context['search'] = SearchFilter(self.request.GET, queryset=context['object_list'])
-        context['order'] = OrderForm
         return context
 
     def get_queryset(self):
@@ -86,7 +85,7 @@ class JuniorProfile(ModelFormMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Профиль'
+        context['title'] = 'Личный кабинет'
         context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
         context['softskillsup'] = SoftSkillsUpdate
         context['hardskillup'] = HardskillsUpdate

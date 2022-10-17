@@ -7,7 +7,7 @@ class JuniorAdmin(admin.ModelAdmin):
     search_fields = ('first_name', 'last_name')
     list_filter = ('position', )
     list_editable = ('first_name', 'exp', 'country', 'position', 'username', 'salary')
-    prepopulated_fields = {'slug': ('last_name',)}
+    prepopulated_fields = {'slug': ('first_name', 'last_name', 'username',)}
 
 class PositionAdmin(admin.ModelAdmin):
     list_display = ('id', 'position', 'slug')

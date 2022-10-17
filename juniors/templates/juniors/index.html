@@ -26,35 +26,27 @@
           <div class="cards-side__box">
             {% salary_range_filter %}
           </div>
-          {% filter_hardskills hardskills_a=hardskills_a %}
-          {% filter_tools tools_a=tools_a %}
-          {% filter_softskills softskills_a=softskills_a %}
+          {% filter_hardskills %}
+          {% filter_tools %}
+          {% filter_softskills %}
           <button class="cards-side btn" type="submit">Искать</button>
         </form>
       </aside>
       <div class="cards-content">
-            <div class="cards-content__up">
-              <div class="cards-content__sort">
-                <p class="cards-content__sort-text">Сортировка</p>
-              </div>
-              <div class="cards-content__hidden">
-                <ul class="cards-content__hidden-list">
-                  <li class="cards-content__hidden-item">
-                    <a class="cards-content__hidden-link" href="#">По алфавиту</a>
-                  </li>
-                  <li class="cards-content__hidden-item">
-                    <a class="cards-content__hidden-link" href="#">По рейтингу</a>
-                  </li>
-                  <li class="cards-content__hidden-item">
-                    <a class="cards-content__hidden-link" href="#">По зарплате</a>
-                  </li>
-                  <li class="cards-content__hidden-item">
-                    <a class="cards-content__hidden-link" href="#">По локации</a>
-                  </li>
-                </ul>
-              </div>
+        <div class="cards-content__up">
+            <div class="cards-content__sort">
+              <p class="cards-content__sort-text">Сортировка</p>
             </div>
-      <div class="cards-content">
+            <div class="cards-content__hidden">
+              <ul class="cards-content__hidden-list">
+                {% for field in order %}
+                <li class="cards-content__hidden-item">
+                  <a class="cards-content__hidden-link" href="#">{{ field }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
         {% for j in juniors %}
         <div class="card">
           <div class="card-top">
@@ -77,6 +69,8 @@
                   {{ j.first_name }} {{ j.last_name }}
                   {% if j.country.image %}
                   <img class="card-bottom__flag" src="{{ j.country.image.url }}">
+                  {% else %}
+                  <img class="card-bottom__flag" src="{% static 'juniors/images/flag-us.svg' %}">
                   {% endif %}
                 </h4>
 
@@ -90,7 +84,7 @@
               {% cardskillsquery j=j %}
               <li class="card-bottom__item">
                 {% if j.slug == user.junior.slug %}
-                <a href="{% url 'profile' %}" class="card-bottom__show">Посмотреть весь профиль</a>
+                <a href="{% url 'profile' j.slug %}" class="card-bottom__show">Посмотреть весь профиль</a>
                 {% else %}
                 <a href="{{ j.get_absolute_url }}" class="card-bottom__show">Посмотреть весь профиль</a>
                 {% endif %}

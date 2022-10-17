@@ -53,7 +53,7 @@ class Junior(models.Model):
         return self.first_name
 
     def get_absolute_url(self):
-        return reverse('junior', kwargs={'jun_slug': self.slug, 'pos_id': self.pk})
+        return reverse('junior', kwargs={'jun_slug': self.slug, 'pos_slug': self.position.slug})
 
 class Country(models.Model):
     country = models.CharField(max_length=100, db_index=True)
@@ -86,7 +86,7 @@ class Position(models.Model):
         return str(self.position)
 
     def get_absolute_url(self):
-        return reverse('position', kwargs={'pos_id': self.pk})
+        return reverse('position', kwargs={'pos_slug': self.slug})
 
 # ===========================
 
@@ -116,8 +116,7 @@ class JuniorSoftskills(models.Model):
 
     def __str__(self):
         return f'{self.junior} - {self.softskill}'
-    def get_absolute_url(self):
-        return reverse('profile')
+
 
 # ===========================
 

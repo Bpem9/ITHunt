@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Главная страница</title>
+    <title>{{ title }}</title>
     <link rel="apple-touch-icon" sizes="144x144" href="{% static 'juniors/favicon/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'juniors/favicon/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'juniors/favicon/favicon-16x16.png' %}">
@@ -39,14 +39,16 @@
           </div>
           <div class="header__search">
             <form class="search-form" method="get" action="#">
-              <img class="search-form__icon" src="{% static 'juniors/images/search.svg' %}" />
-              {{ search.form.as_p }}
+              <a class="search-form__icon-search" href="#">
+                <img class="search-form__icon" src="{% static 'juniors/images/search.svg' %}" />
+              </a>
+              {{ search.form.q }}
               <button class="search-form__btn" type="submit" >Искать</button>
             </form>
           </div>
               {% if request.user.is_authenticated %}
             <div class="header__account">
-                <a class="header__account-link" href="{% url 'profile' %}">{{ user.username }}</a>
+                <a class="header__account-link" href="{% url 'profile' user.junior.slug %}">{{ user.username }}</a>
 <!--                {% if user.junior.url_img %}-->
 <!--                    <img class="relations__img" src="{{ user.junior.url_img.url }}">-->
 <!--                {% else %}-->

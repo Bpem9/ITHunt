@@ -18,14 +18,12 @@ class LoginUserForm(AuthenticationForm):
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={}))
 
 class JunUpdatingForm(forms.ModelForm):
-
     class Meta:
         model = Junior
         fields = ['first_name', 'last_name', 'description', 'position']
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'profile__header-text'}),
             'last_name': forms.TextInput(attrs={'class': 'profile__header-text'}),
-            # 'position': forms.CheckboxSelectMultiple(attrs={'class': 'profile__main-descr'}),
             'description': forms.Textarea(attrs={'class': 'profile__main-textarea'}),
             }
 
@@ -42,3 +40,11 @@ class ToolsUpdate(forms.ModelForm):
     class Meta:
         model = JuniorTools
         fields = ['tool']
+
+class OrderForm(forms.Form):
+    CHOICES = (
+        ('first_name', 'По алфавиту'),
+        ('salary', 'По зарплату'),
+        ('country', 'По локации'),
+    )
+    order = forms.ChoiceField(choices=CHOICES)

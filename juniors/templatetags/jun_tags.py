@@ -31,15 +31,18 @@ def get_juns_hardskills(context):
     return junior.hardskills_set.all()
 
 
-@register.inclusion_tag('juniors/inclusion/softskill_filters.html')
-def filter_softskills(softskills_a=None):
-    return {'softskills_a': softskills_a}
-@register.inclusion_tag('juniors/inclusion/hardskill_filters.html')
-def filter_hardskills(hardskills_a=None):
-    return {'hardskills_a': hardskills_a}
-@register.inclusion_tag('juniors/inclusion/tools_filters.html')
-def filter_tools(tools_a=None):
-    return {'tools_a': tools_a}
+@register.inclusion_tag('juniors/inclusion/softskill_filters.html', takes_context=True)
+def filter_softskills(context):
+    softskills = SoftSkills.objects.filter(jun__in=context['object_list']).distinct()
+    return {'softskills': softskills}
+@register.inclusion_tag('juniors/inclusion/hardskill_filters.html', takes_context=True)
+def filter_hardskills(context):
+    hardskills = Hardskills.objects.filter(jun__in=context['object_list']).distinct()
+    return {'hardskills': hardskills}
+@register.inclusion_tag('juniors/inclusion/tools_filters.html', takes_context=True)
+def filter_tools(context):
+    tools = Tools.objects.filter(jun__in=context['object_list']).distinct()
+    return {'tools': tools}
 
 
 @register.inclusion_tag('juniors/inclusion/salary_range_filter.html')
@@ -58,8 +61,8 @@ def cardskillsquery(j):
         shuffle(cardskills)
     return {'cardskills': cardskills[:4]}
 @register.inclusion_tag('juniors/inclusion/messangers_icons.html')
-def messangers_icons(jun_slug):
-    junior = Junior.objects.get(slug=jun_slug)
+def messengers_icons(slug):
+    junior = Junior.objects.get(slug=slug)
     return {'junior': junior}
 
 @register.filter()

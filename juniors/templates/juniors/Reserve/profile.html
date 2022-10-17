@@ -1,0 +1,212 @@
+{% extends 'juniors/base.html' %}
+{% load static %}
+{% load jun_tags %}
+{% block content %}
+<section class="tab">
+  <div class="container">
+    <div class="tabs">
+      <a href="{% url 'index' %}" class="tabs-link">Главная</a>
+      <button class="tabs-link active active" onclick="openTab(event, 'profile')" id="defaultOpen">Мой профиль</button>
+      <button class="tabs-link" onclick="openTab(event, 'reservations')">Бронирования</button>
+      <button class="tabs-link" onclick="openTab(event, 'messages')">Сообщения</button>
+    </div>
+    <div id="main" class="tab-content main"></div>
+    <form action="{% url 'profile' user.junior.slug %}" method="post" class="profile__header-info">
+      <div id="profile" class="tab-content profile">
+        <div class="profile__header">
+          {% if user.junior.url_img %}
+          <img class="profile__header-img" src="{{ user.junior.url_img.url }}" alt="account" />
+          {% else %}
+          <img class="profile__header-img" src="{% static 'juniors/images/coder.gif' %}" alt="account" />
+          {% endif %}
+            <div class="profile__header-info">
+            <h3 class="profile__header-text">{{ form.first_name }} {{ form.last_name }}</h3>
+  <!--          <h3 class="profile__header-text">{{ user.junior.first_name }} {{ user.junior.last_name }}</h3>-->
+
+            </div>
+        </div>
+        <div class="profile__main">
+          <ul class="profile__main-list">
+            <li class="profile__main-item">
+              <p class="profile__main-name">Роль</p>
+              <p class="profile__main-descr">{{ form.position }}</p>
+  <!--            <p class="profile__main-descr">{{ user.junior.position.position }}</p>-->
+            </li>
+            <li class="profile__main-item">
+              <p class="profile__main-name">Языки</p>
+              {% for lang in user.junior.language|spl %}
+              <p class="profile__main-lang">{{ lang }}</p>
+              {% endfor %}
+            </li>
+            <!-- <li class="profile__main-item">
+              <p class="profile__main-name">Зарплатная вилка соискателя</p>
+              <p class="profile__main-lang">€41K / €51K</p>
+            </li> -->
+            <li class="profile__main-item">
+              <p class="profile__main-name">Способы связи со мной</p>
+              <p class="profile__main-social">
+                {% if user.junior.linkedin %}
+                <a href="{{ user.junior.linkedin }}" class="profile__main-social__link">
+                <img class="profile__main-social__img" src="{% static 'juniors/images/linkedin.svg' %}" alt="linkedin" />
+                </a>
+                {% endif %}
+              </p>
+              <p class="profile__main-social">
+                {% if user.junior.telegram %}
+                <a href="{{ user.junior.telegram }}" class="profile__main-social__link">
+                <img class="profile__main-social__img" src="{% static 'juniors/images/telegram.svg' %}" alt="telegram" />
+                </a>
+                {% endif %}
+              </p>
+              <button class="profile__main-btn btn">Добавить</button>
+            </li>
+            <li class="profile__main-item">
+              <p class="profile__main-name">Обо мне</p>
+              {{ form.description }}
+            </li>
+            <li class="profile__main-item">
+              <p class="profile__main-name">Мой стек навыков и технологий</p>
+              <div class="profile__main-box">
+  <!--------------------Отображение и добавление Hardskillов-------------------->
+                <div class="profile__main-skillbox">
+                  <p class="profile__main-title">Hard skills</p>
+                  {% for skill in user.junior.hardskills_set.all %}
+                  <form class="" name="del" method="post">
+                    {% csrf_token %}
+                    <div class="">{{ hardskillup.non_field_errors }}</div>
+                    <p class="profile__main-skill">{{ skill.skill }}</p>
+                    <button type="button" class="btn-close" aria-label="Close">x</button>
+                  </form>
+                  {% endfor %}
+                  <form class="" name="hardskill" method="post">
+                    {% csrf_token %}
+                    {{ hardskillup.as_p }}
+                    <button class="profile__main-btn btn" type="submit">Добавить</button>
+                  </form>
+                </div>
+  <!--------------------Отображение и добавление Softskillов-------------------->
+                <div class="profile__main-skillbox">
+                  <p class="profile__main-title">Soft skills</p>
+                  {% for skill in user.junior.softskills_set.all %}
+                  <p class="profile__main-skill">{{ skill.skill }}</p>
+                  {% endfor %}
+                  <form class="" name="softskill" method="post">
+                    {% csrf_token %}
+                    <div class="">{{ softskillsup.non_field_errors }}</div>
+                    {{ softskillsup.as_p }}
+                    <button class="profile__main-btn btn" type="submit">Добавить</button>
+                  </form>
+                </div>
+  <!--------------------Отображение и добавление Технологий (Tools)-------------------->
+                <div class="profile__main-skillbox">
+                  <p class="profile__main-title">Tools</p>
+                  {% for tool in user.junior.tools_set.all %}
+                  <p class="profile__main-skill">{{ tool.tool }}</p>
+                  {% endfor %}
+                  <form class="" name="tool" method="post">
+                    {% csrf_token %}
+                    {{ toolsup.as_p }}
+                    <button class="profile__main-btn btn" type="submit">Добавить</button>
+                  </form>
+                </div>
+              </div>
+            </li>
+          </ul>
+      <button type='submit' class="profile__header-btn">Редактировать профиль</button>
+    </form>
+        <div class="profile__main-work">
+          <h4 class="profile__main-work__title">Work Experience</h4>
+          <div class="profile__main-work__content">
+            <div class="profile__main-work__content-left">
+              <img src="{% static 'juniors/images/workPic.png' %}" alt="workpic" class="profile__main-work__content-img" />
+              <div class="profile__main-work__content-box">
+                <p class="profile__main-work__content-title">IT Recruiter</p>
+                <p class="profile__main-work__content-text">StarSoft</p>
+                <img class="profile__main-work__content-textImg" alt="dot" src="{% static 'juniors/images/dot.svg' %}" />
+                <p class="profile__main-work__content-text">Full-time</p>
+              </div>
+            </div>
+            <div class="profile__main-work__content-right">
+              <p class="profile__main-work__content-right__text">Dec 2020 — Present</p>
+            </div>
+            <div class="profile__main-work__content-workedit">
+              <button class="profile__main-work__content-workedit__btn">Редактировать</button>
+              <div class="profile__main-work__content-workhidden">
+                <div class="profile__main-work__content-workhidden__inner">
+                  <h4 class="profile__main-work__content-workhidden__title">Редактировать мой опыт</h4>
+                  <form class="profile__main-work__content-workhidden__form" action="#">
+                    <label class="profile__main-work__content-workhidden__name" for="#">Роль</label>
+                    <input class="profile__main-work__content-workhidden__input" type="text" />
+                    <label class="profile__main-work__content-workhidden__name" for="#">Компания</label>
+                    <input class="profile__main-work__content-workhidden__input" type="text" />
+                    <label class="profile__main-work__content-workhidden__name" for="#">Вид занятости</label>
+                    <select class="profile__main-work__content-workhidden__select">
+                      <option value="1" class="profile__main-work__content-workhidden__select-option">Full-time</option>
+                      <option value="2" class="profile__main-work__content-workhidden__select-option">Part-time</option>
+                      <option value="3" class="profile__main-work__content-workhidden__select-option">Mixed</option>
+                    </select>
+
+                    <div class="profile__main-work__content-workhidden__box">
+                      <input type="checkbox" class="profile__main-work__content-workhidden__checkbox" />
+                      <label class="profile__main-work__content-workhidden__checkbox-label">Я все еще тут работаю </label>
+                    </div>
+                  </form>
+                  <div class="profile__main-work__content-workhidden__btnbox">
+                    <button class="profile__main-work__content-workhidden__btnbox__save">Сохранить</button>
+                    <button class="profile__main-work__content-workhidden__btnbox__del">Удалить</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="profile__main-workbtn btn">Добавить</button>
+        </div>
+        <div class="profile__main-work">
+          <h4 class="profile__main-work__title">Education</h4>
+          <div class="profile__main-work__content">
+            <div class="profile__main-work__content-left">
+              <img src="{% static 'juniors/images/workPic.png' %}" alt="workpic" class="profile__main-work__content-img" />
+              <div class="profile__main-work__content-box">
+                <p class="profile__main-work__content-title">University of Gdansk</p>
+                <p class="profile__main-work__content-text">Management</p>
+                <img class="profile__main-work__content-textImg" alt="dot" src="{% static 'juniors/images/dot.svg' %}" />
+                <p class="profile__main-work__content-text">Bachelor’s degree</p>
+              </div>
+            </div>
+            <div class="profile__main-work__content-right">
+              <p class="profile__main-work__content-right__text">Dec 2020 — Dec 2020</p>
+            </div>
+            <div class="profile__main-work__content-eduedit">
+              <button class="profile__main-work__content-eduedit__btn">Редактировать</button>
+              <div class="profile__main-work__content-eduhidden">
+                <div class="profile__main-work__content-eduhidden__inner">
+                  <h4 class="profile__main-work__content-eduhidden__title">Редактировать образование</h4>
+                  <form class="profile__main-work__content-eduhidden__form" action="#">
+                    <label class="profile__main-work__content-eduhidden__name" for="#">Учебное заведение</label>
+                    <input class="profile__main-work__content-eduhidden__input" type="text" />
+                    <label class="profile__main-work__content-eduhidden__name" for="#">Специальность</label>
+                    <input class="profile__main-work__content-eduhidden__input" type="text" />
+                    <label class="profile__main-work__content-eduhidden__name" for="#">Степень</label>
+                    <select class="profile__main-work__content-eduhidden__select">
+                      <option value="1" class="profile__main-work__content-eduhidden__select-option">Бакалавр</option>
+                      <option value="2" class="profile__main-work__content-eduhidden__select-option">Специалист</option>
+                      <option value="3" class="profile__main-work__content-eduhidden__select-option">Магистр</option>
+                    </select>
+                  </form>
+                  <div class="profile__main-work__content-eduhidden__btnbox">
+                    <button class="profile__main-work__content-eduhidden__btnbox__save">Сохранить</button>
+                    <button class="profile__main-work__content-eduhidden__btnbox__del">Удалить</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="profile__main-workbtn btn">Добавить</button>
+        </div>
+      </div>
+    </div>
+    <div id="reservations" class="tab-content"></div>
+    <div id="messages" class="tab-content"></div>
+  </div>
+</section>
+{% endblock %}

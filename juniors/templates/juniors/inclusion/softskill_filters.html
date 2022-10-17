@@ -4,15 +4,15 @@
       Soft skills
     </summary>
     <div class="cards-side__inner">
-      {% for skill in softskills_a %}
+      {% for skill in softskills %}
         <div class="cards-side__form-box">
           <input type="checkbox" class="cards-side__input" name="softskills" value="{{ skill.skill }}"/>
           <label class="cards-side__label">{{ skill.skill }}</label>
         </div>
       {% endfor %}
-      {% if softskills_a.count > 5 %}
+      {% if softskills.count > 5 %}
         <details class="details">
-          <summary class="summary">{{ softskills_a.count|add:"-5" }} more</summary>
+          <summary class="summary">{{ softskills.count|add:"-5" }} more</summary>
         </details>
       {% endif %}
     </div>

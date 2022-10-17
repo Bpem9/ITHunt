@@ -13,7 +13,7 @@ class SalaryFilter(django_filters.FilterSet):
 
 
 class SearchFilter(django_filters.FilterSet):
-    q = django_filters.CharFilter(method='fio', label='Search',
+    q = django_filters.CharFilter(method='fio',
                                   widget=forms.TextInput(
                                   attrs={'class':"search-form__input",
                                          'placeholder':"Поиск по ключевому слову",

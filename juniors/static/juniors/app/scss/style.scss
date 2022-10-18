@@ -33,6 +33,8 @@
   }
   &__account {
     margin-left: 10px;
+    display: flex;
+    align-items: center;
   }
   &__account-link {
     padding: 14px 27px;
@@ -49,8 +51,15 @@
       background-color: #000;
       color: #fbfafa;
       border: 1px solid #000;
+      }
     }
+    &__account-userlink{
+      margin-left: 20px;
+    
   }
+    &__user-svg:hover{
+      fill:#EAE7EA;
+    }
 }
 .search-form {
   display: flex;
@@ -169,6 +178,9 @@
     }
     &__box:first-child .cards-side__title::after {
       display: none;
+    }
+    &__box-form{
+      max-width: 187px;
     }
 
     .cards-side__title--active.cards-side__title::after {

@@ -78,7 +78,7 @@ let number = date.getDate()
 // }
 
 let fullDate = dayTime + ' ' + number + ' ' + monthes[month]
-console.log(fullDate)
+// console.log(fullDate)
 $('.card-tabs__timepicker-title').text(fullDate)
 
 $('.card-tabs__timepicker-list__item').on('click', function () {

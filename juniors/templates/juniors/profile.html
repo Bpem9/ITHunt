@@ -27,7 +27,10 @@
         />
         {% endif %}
         <div class="profile__header-info">
+          <div class="profile__header-info__box">
           <h3 class="profile__header-text">{{ junior.first_name }} {{ junior.last_name }}</h3>
+          <img class="profile__header-flag" src="images/flag-india.svg" alt="flag">
+          </div>
           <a href="#" class="profile__header-btn">Редактировать профиль</a>
         </div>
       </div>
@@ -100,6 +103,7 @@
             </div>
           </li>
         </ul>
+        <div class="profile__main-work__wrapper">
         <div class="profile__main-work">
           <h4 class="profile__main-work__title">Work Experience</h4>
           <div class="profile__main-work__content">
@@ -210,6 +214,7 @@
           </div>
           <button class="profile__main-workbtn btn">Добавить</button>
         </div>
+      </div>
     </div>
   </div>
   <div id="reservations" class="tab-content"></div>

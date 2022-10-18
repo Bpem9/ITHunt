@@ -43,6 +43,7 @@ class JuniorsView(SkillsFilters, ListView):
         context['search'] = SearchFilter(self.request.GET, queryset=context['object_list'])
         return context
 
+
     def get_queryset(self, **kwargs):
         # <------------------- БДшка------------------->
         # for i in range(len(lst_juns)):
@@ -60,7 +61,8 @@ class JuniorsView(SkillsFilters, ListView):
         #     Country(country=coun, slug=slugify(coun)).save()
         # Заполнение БД из файла GdrvtoSQL (из таблицы google-drive), запускать один раз, в случае, если нужно пересоздать БД базового состояния
         # <------------------- БДшка------------------->
-        return super().get_filtrated_queryset(**self.kwargs)
+        juniors = super().get_filtrated_queryset(**self.kwargs)
+        return super().get_sorted_queryset(juniors)
 
 
 class JuniorsPosition(SkillsFilters, ListView):
@@ -71,11 +73,13 @@ class JuniorsPosition(SkillsFilters, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Страница категории'
+        context['order'] = ['По алфавиту', 'По рейтингу', 'По зарплате', 'По локации']
         context['search'] = SearchFilter(self.request.GET, queryset=context['object_list'])
         return context
 
     def get_queryset(self):
-        return super().get_filtrated_queryset(**self.kwargs)
+        juniors = super().get_filtrated_queryset(**self.kwargs)
+        return super().get_sorted_queryset(juniors)
 
 
 class JuniorProfile(ModelFormMixin, DetailView):

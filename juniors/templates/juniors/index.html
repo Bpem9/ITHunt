@@ -41,7 +41,7 @@
               <ul class="cards-content__hidden-list">
                 {% for field in order %}
                 <li class="cards-content__hidden-item">
-                  <a class="cards-content__hidden-link" href="{% url 'index' %}">{{ field }}</a>
+                  <a class="cards-content__hidden-link" type="submit" href="?sort={{ field }}">{{ field }}</a>
                 </li>
                 {% endfor %}
               </ul>

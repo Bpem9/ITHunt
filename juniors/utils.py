@@ -23,8 +23,16 @@ class SkillsFilters:
                                      )
         return juniors.distinct()
 
-    # def get_sorted_queryset(self, **kwargs):
-    #     return juniors.sorted()
+    def get_sorted_queryset(self, juniors, **kwargs):
+        if self.request.GET.get('sort') == 'По алфавиту':
+            juniors = juniors.order_by('first_name', 'last_name')
+        # if self.request.GET.get('sort') == 'По рейтингу':
+        #     juniors = juniors.sorted('position')
+        if self.request.GET.get('sort') == 'По зарплате':
+            juniors = juniors.order_by('salary')
+        if self.request.GET.get('sort') == 'По локации':
+            juniors = juniors.order_by('country__country')
+        return juniors
     # ''' Стартовая выборка - все джуны из БД.
     #      Если метод GET что-то возвращает - все значения записываются в виде списка скиллов в skfl, hkdl или tlls.
     #      В новую выборку джунов отфильтовываются джуны из стартовой выборки БД в атрибуте softskills/hardskills/tools__skill

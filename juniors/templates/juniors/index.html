@@ -53,7 +53,7 @@
             {% if j.url_img %}
             <img class="card-top__img" src="{{ j.url_img.url }}" alt="">
             {% else %}
-            <img class="card-top__img" src="{% static 'juniors/images/coder.gif' %}">
+            <img class="card-top__img" src="{% static 'juniors/app/images/coder.gif' %}">
             {% endif %}
             <a class="card-top__heart">
               <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,7 +70,7 @@
                   {% if j.country.image %}
                   <img class="card-bottom__flag" src="{{ j.country.image.url }}">
                   {% else %}
-                  <img class="card-bottom__flag" src="{% static 'juniors/images/flag-us.svg' %}">
+                  <img class="card-bottom__flag" src="{% static 'juniors/app/images/flag-us.svg' %}">
                   {% endif %}
                 </h4>
 
@@ -78,7 +78,7 @@
               </li>
               <li class="card-bottom__item">
                 <h4 class="card-bottom__speciality">{{ j.position }}</h4>
-                <img src="{% static 'juniors/images/point.svg' %}">
+                <img src="{% static 'juniors/app/images/point.svg' %}">
                 <p class="card-bottom__exp">Опыт: {{ j.exp }}</p>
               </li>
               {% cardskillsquery j=j %}

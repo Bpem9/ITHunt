@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="http://fonts.cdnfonts.com/css/gt-walsheim-pro"
+      rel="stylesheet"
+    />
+    <!-- /////////////////////Ползунок -->
+    <link
+      rel="stylesheet"
+      href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
+    />
+
+    <!-- /////////////////////////////////// -->
+    <link rel="stylesheet" href="css/style.min.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header__inner">
+          <div class="header__logo">
+            <a class="logo__link" href="#">
+              <img class="logo__img" src="images/logo.svg" />
+            </a>
+          </div>
+          <div class="header__search">
+            <form class="search-form" action="#">
+              <img class="search-form__icon" src="images/search.svg" />
+              <input
+                class="search-form__input"
+                placeholder="Поиск по ключевому слову"
+                type="text"
+              />
+              <button class="search-form__btn">Искать</button>
+            </form>
+          </div>
+          <div class="header__account">
+            <a class="header__acconut-link" href="#">
+              <img class="header__account-img" src="images/account.png" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <blockquote class="blockquote"></blockquote>
+    <section class="services">
+      <div class="container">
+        <div class="services__inner">
+          <ul class="services__list">
+            <li class="services__item">
+              <a class="services__item-link" href="#">Product Managers</a>
+            </li>
+            <li class="services__item">
+              <a class="services__item-link" href="#">Project Managers</a>
+            </li>
+            <li class="services__item">
+              <a class="services__item-link" href="#">UX/UI Designers</a>
+            </li>
+            <li class="services__item">
+              <a class="services__item-link" href="#">Backend</a>
+            </li>
+            <li class="services__item">
+              <a class="services__item-link" href="#">Frontend</a>
+            </li>
+            <li class="services__item">
+              <a class="services__item-link" href="#">Marketing</a>
+            </li>
+            <li class="services__item">
+              <a class="services__item-link" href="#">QA</a>
+            </li>
+          </ul>
+        </div>
+        <hr class="services__line line" />
+      </div>
+    </section>
+    
+    <section class="cards">
+      <div class="container">
+        <div class="cards__inner">
+          <aside class="cards-side">
+            <div class="cards-side__box">
+              <h3 class="cards-side__title">Зарплатная вилка</h3>
+              
+              <div id="slider-range"></div>
+              <div class="slider-range">
+                <p class="slider-range__input" type="text" id="amount1" readonly >€43K</p>
+                <p class="slider-range__input" type="text" id="amount2" readonly >€63K</p>
+              </div>
+            </div>
+            <div class="cards-side__box">
+              <details open>
+                <summary class="cards-side__title cards-side__title--active">
+                  Hard Skills
+                </summary>
+                <div class="cards-side__inner">
+                  <div class="cards-side__form-box">
+                    <input type="checkbox" class="cards-side__input" />
+                    <label class="cards-side__label">Prototyping</label>
+                  </div>
+                  <div class="cards-side__form-box">
+                    <input type="checkbox" class="cards-side__input" />
+                    <label class="cards-side__label">Decision Mapping</label>
+                  </div>
+                  <div class="cards-side__form-box">
+                    <input type="checkbox" class="cards-side__input" />
+                    <label class="cards-side__label">Creative Suite</label>
+                  </div>
+                  <div class="cards-side__form-box">
+                    <input type="checkbox" class="cards-side__input" />
+                    <label class="cards-side__label">Wireframing</label>
+                  </div>
+                  <div class="cards-side__form-box">
+                    <input type="checkbox" class="cards-side__input" />
+                    <label class="cards-side__label">Design Thinking</label>
+                  </div>
+                  <div class="cards-side__form-box">
+                    <details class="details">
+                      <summary class="summary">
+                        20 more
+                      </summary>
+                      
+                      <div class="cards-side__form-box">
+                        <input type="checkbox" class="cards-side__input" />
+                        <label class="cards-side__label">Design Thinking</label>
+                      </div>
+                      <div class="cards-side__form-box">
+                        <input type="checkbox" class="cards-side__input" />
+                        <label class="cards-side__label">Design Thinking</label>
+                      </div>
+                      <div class="cards-side__form-box">
+                        <input type="checkbox" class="cards-side__input" />
+                        <label class="cards-side__label">Design Thinking</label>
+                      </div>
+                      <div class="cards-side__form-box">
+                        <input type="checkbox" class="cards-side__input" />
+                        <label class="cards-side__label">Design Thinking</label>
+                      </div>
+                      
+                    </details>
+                  </div>
+                </div>
+                <hr class="line">
+              </details>
+            </div>
+            <div class="cards-side__box">
+              <details open>
+                <summary class="cards-side__title cards-side__title--active">
+                  Tools
+                </summary>
+                <div class="cards-side__inner">
+                  <div class="cards-side__form-box">
+                    <input type="checkbox" class="cards-side__input" />
+                    <label class="cards-side__label">Photoshop</label>
+                  </div>
+                  <div class="cards-side__form-box">
+                    <input type="checkbox" class="cards-side__input" />
+                    <label class="cards-side__label">Figma</label>
+                  </div>
+                  <div class="cards-side__form-box">
+                    <input type="checkbox" class="cards-side__input" />
+                    <label class="cards-side__label">Creative Suite</label>
+                  </div>
+                  <div class="cards-side__form-box">
+                    <input type="checkbox" class="cards-side__input" />
+                    <label class="cards-side__label">Illustrator</label>
+                  </div>
+                  <div class="cards-side__form-box">
+                    <input type="checkbox" class="cards-side__input" />
+                    <label class="cards-side__label">Axure</label>
+                  </div>
+                  <div class="cards-side__form-box">
+                    <details class="details">
+                      <summary class="summary">20 more</summary>
+                     
+                      <div class="cards-side__form-box">
+                        <input type="checkbox" class="cards-side__input" />
+                        <label class="cards-side__label">Axure</label>
+                      </div>
+                      <div class="cards-side__form-box">
+                        <input type="checkbox" class="cards-side__input" />
+                        <label class="cards-side__label">Axure</label>
+                      </div>
+                      <div class="cards-side__form-box">
+                        <input type="checkbox" class="cards-side__input" />
+                        <label class="cards-side__label">Axure</label>
+                      </div>
+                      <div class="cards-side__form-box">
+                        <input type="checkbox" class="cards-side__input" />
+                        <label class="cards-side__label">Axure</label>
+                      </div>
+                      
+                    </details>
+                    
+                  </div>
+                </div>
+                <hr class="line">
+              </details>
+            </div>
+            <div class="cards-side__box">
+              <details open>
+                <summary class="cards-side__title cards-side__title--active">
+                  Soft skills
+                </summary>
+                <div class="cards-side__inner">
+                  <div class="cards-side__form-box">
+                    <input type="checkbox" class="cards-side__input" />
+                    <label class="cards-side__label">Empathy</label>
+                  </div>
+                  <div class="cards-side__form-box">
+                    <input type="checkbox" class="cards-side__input" />
+                    <label class="cards-side__label">Curiosity</label>
+                  </div>
+                  <div class="cards-side__form-box">
+                    <input type="checkbox" class="cards-side__input" />
+                    <label class="cards-side__label">Collaboration</label>
+                  </div>
+                  <div class="cards-side__form-box">
+                    <input type="checkbox" class="cards-side__input" />
+                    <label class="cards-side__label">Teamwork</label>
+                  </div>
+                 
+                  <details class="details">
+                    <summary class="summary">
+                    15 more
+                    </summary>
+                    
+                      <div class="cards-side__hidden" >
+                        <div class="cards-side__form-box">
+                        <input type="checkbox" class="cards-side__input" />
+                        <label class="cards-side__label">15 More</label>
+                      </div>
+                      <div class="cards-side__hidden" >
+                        <div class="cards-side__form-box">
+                        <input type="checkbox" class="cards-side__input" />
+                        <label class="cards-side__label">15 More</label>
+                      </div>
+                      <div class="cards-side__hidden" >
+                        <div class="cards-side__form-box">
+                        <input type="checkbox" class="cards-side__input" />
+                        <label class="cards-side__label">15 More</label>
+                      </div>
+                      <div class="cards-side__hidden" >
+                        <div class="cards-side__form-box">
+                        <input type="checkbox" class="cards-side__input" />
+                        <label class="cards-side__label">15 More</label>
+                      </div>
+                      <div class="cards-side__hidden" >
+                        <div class="cards-side__form-box">
+                        <input type="checkbox" class="cards-side__input" />
+                        <label class="cards-side__label">15 More</label>
+                      </div>
+                    
+                  </details>
+                </div>
+                <hr class="line">
+              </details>
+            </div>
+          </aside>
+          <div class="cards-content">
+            <div class="card">
+              <div class="card-top">
+                <img class="card-top__img" src="images/people1.png" alt="">
+                <a class="card-top__heart">
+                  <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.55078 5.97034C2.02202 4.87922 2.70149 3.89045 3.55117 3.0594C4.40149 2.22587 5.40404 1.56347 6.5043 1.10823C7.6452 0.634297 8.86888 0.391712 10.1043 0.394556C11.8375 0.394556 13.5285 0.869165 14.998 1.76565C15.3496 1.9801 15.6836 2.21565 16 2.47229C16.3164 2.21565 16.6504 1.9801 17.002 1.76565C18.4715 0.869165 20.1625 0.394556 21.8957 0.394556C23.1438 0.394556 24.3531 0.633619 25.4957 1.10823C26.5996 1.56526 27.5945 2.22268 28.4488 3.0594C29.2996 3.88952 29.9793 4.87851 30.4492 5.97034C30.9379 7.10588 31.1875 8.31174 31.1875 9.55276C31.1875 10.7235 30.9484 11.9434 30.4738 13.1844C30.0766 14.2215 29.507 15.2973 28.7793 16.3836C27.6262 18.1028 26.0406 19.8957 24.0719 21.7133C20.8094 24.7262 17.5785 26.8074 17.4414 26.8918L16.6082 27.4262C16.2391 27.6617 15.7645 27.6617 15.3953 27.4262L14.5621 26.8918C14.425 26.8039 11.1977 24.7262 7.93164 21.7133C5.96289 19.8957 4.37734 18.1028 3.22422 16.3836C2.49648 15.2973 1.92344 14.2215 1.52969 13.1844C1.05508 11.9434 0.816015 10.7235 0.816015 9.55276C0.812499 8.31174 1.06211 7.10588 1.55078 5.97034V5.97034ZM16 24.6453C16 24.6453 28.5156 16.6262 28.5156 9.55276C28.5156 5.97034 25.552 3.06643 21.8957 3.06643C19.3258 3.06643 17.0969 4.50081 16 6.59612C14.9031 4.50081 12.6742 3.06643 10.1043 3.06643C6.44805 3.06643 3.48438 5.97034 3.48438 9.55276C3.48438 16.6262 16 24.6453 16 24.6453Z" fill="#F5F5F5"/>
+                  </svg>
+                </a>
+                  
+              </div>
+              <div class="card-bottom">
+                <ul class="card-bottom__list">
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__name">
+                      Ciaran Jones
+                      <img class="card-bottom__flag" src="images/flag-us.svg">
+                    </h4>
+                    
+                    <a href="#" class="card-bottom__simile">В сравнение</a>
+                  </li>
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__speciality">A UX Designer</h4> 
+                    <img src="images/point.svg">
+                    <p class="card-bottom__exp">Опыт 2 года</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <p class="card-bottom__tool">Figma</p>
+                    <p class="card-bottom__tool">Creative Suite</p>
+                     
+                    <p class="card-bottom__tool">Prototyping</p>
+                    <p class="card-bottom__tool">Curiosity</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <a href="#" class="card-bottom__show">Посмотреть весь профиль</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-top">
+                <img class="card-top__img" src="images/people2.png" alt="">
+                <a class="card-top__heart">
+                  <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.55078 5.97034C2.02202 4.87922 2.70149 3.89045 3.55117 3.0594C4.40149 2.22587 5.40404 1.56347 6.5043 1.10823C7.6452 0.634297 8.86888 0.391712 10.1043 0.394556C11.8375 0.394556 13.5285 0.869165 14.998 1.76565C15.3496 1.9801 15.6836 2.21565 16 2.47229C16.3164 2.21565 16.6504 1.9801 17.002 1.76565C18.4715 0.869165 20.1625 0.394556 21.8957 0.394556C23.1438 0.394556 24.3531 0.633619 25.4957 1.10823C26.5996 1.56526 27.5945 2.22268 28.4488 3.0594C29.2996 3.88952 29.9793 4.87851 30.4492 5.97034C30.9379 7.10588 31.1875 8.31174 31.1875 9.55276C31.1875 10.7235 30.9484 11.9434 30.4738 13.1844C30.0766 14.2215 29.507 15.2973 28.7793 16.3836C27.6262 18.1028 26.0406 19.8957 24.0719 21.7133C20.8094 24.7262 17.5785 26.8074 17.4414 26.8918L16.6082 27.4262C16.2391 27.6617 15.7645 27.6617 15.3953 27.4262L14.5621 26.8918C14.425 26.8039 11.1977 24.7262 7.93164 21.7133C5.96289 19.8957 4.37734 18.1028 3.22422 16.3836C2.49648 15.2973 1.92344 14.2215 1.52969 13.1844C1.05508 11.9434 0.816015 10.7235 0.816015 9.55276C0.812499 8.31174 1.06211 7.10588 1.55078 5.97034V5.97034ZM16 24.6453C16 24.6453 28.5156 16.6262 28.5156 9.55276C28.5156 5.97034 25.552 3.06643 21.8957 3.06643C19.3258 3.06643 17.0969 4.50081 16 6.59612C14.9031 4.50081 12.6742 3.06643 10.1043 3.06643C6.44805 3.06643 3.48438 5.97034 3.48438 9.55276C3.48438 16.6262 16 24.6453 16 24.6453Z" fill="#F5F5F5"/>
+                  </svg>
+                </a>
+                  
+              </div>
+              <div class="card-bottom">
+                <ul class="card-bottom__list">
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__name">
+                      Anna Clarke
+                      <img class="card-bottom__flag" src="images/flag-uk.svg">
+                    </h4>
+                    
+                    <a href="#" class="card-bottom__simile">В сравнение</a>
+                  </li>
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__speciality">A UX Designer</h4> 
+                    <img src="images/point.svg">
+                    <p class="card-bottom__exp">Опыт 1 года</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <p class="card-bottom__tool">Figma</p>
+                    <p class="card-bottom__tool">Creative Suite</p>
+                     
+                    <p class="card-bottom__tool">Wireframing</p>
+                    <p class="card-bottom__tool">Adobe Illustrator</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <a href="#" class="card-bottom__show">Посмотреть весь профиль</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-top">
+                <img class="card-top__img" src="images/people3.png" alt="">
+                <a class="card-top__heart">
+                  <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.55078 5.97034C2.02202 4.87922 2.70149 3.89045 3.55117 3.0594C4.40149 2.22587 5.40404 1.56347 6.5043 1.10823C7.6452 0.634297 8.86888 0.391712 10.1043 0.394556C11.8375 0.394556 13.5285 0.869165 14.998 1.76565C15.3496 1.9801 15.6836 2.21565 16 2.47229C16.3164 2.21565 16.6504 1.9801 17.002 1.76565C18.4715 0.869165 20.1625 0.394556 21.8957 0.394556C23.1438 0.394556 24.3531 0.633619 25.4957 1.10823C26.5996 1.56526 27.5945 2.22268 28.4488 3.0594C29.2996 3.88952 29.9793 4.87851 30.4492 5.97034C30.9379 7.10588 31.1875 8.31174 31.1875 9.55276C31.1875 10.7235 30.9484 11.9434 30.4738 13.1844C30.0766 14.2215 29.507 15.2973 28.7793 16.3836C27.6262 18.1028 26.0406 19.8957 24.0719 21.7133C20.8094 24.7262 17.5785 26.8074 17.4414 26.8918L16.6082 27.4262C16.2391 27.6617 15.7645 27.6617 15.3953 27.4262L14.5621 26.8918C14.425 26.8039 11.1977 24.7262 7.93164 21.7133C5.96289 19.8957 4.37734 18.1028 3.22422 16.3836C2.49648 15.2973 1.92344 14.2215 1.52969 13.1844C1.05508 11.9434 0.816015 10.7235 0.816015 9.55276C0.812499 8.31174 1.06211 7.10588 1.55078 5.97034V5.97034ZM16 24.6453C16 24.6453 28.5156 16.6262 28.5156 9.55276C28.5156 5.97034 25.552 3.06643 21.8957 3.06643C19.3258 3.06643 17.0969 4.50081 16 6.59612C14.9031 4.50081 12.6742 3.06643 10.1043 3.06643C6.44805 3.06643 3.48438 5.97034 3.48438 9.55276C3.48438 16.6262 16 24.6453 16 24.6453Z" fill="#F5F5F5"/>
+                  </svg>
+                </a>
+                  
+              </div>
+              <div class="card-bottom">
+                <ul class="card-bottom__list">
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__name">
+                      Emma Khan
+                      <img class="card-bottom__flag" src="images/flag-india.svg">
+                    </h4>
+                    
+                    <a href="#" class="card-bottom__simile">В сравнение</a>
+                  </li>
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__speciality">A UX Designer</h4> 
+                    <img src="images/point.svg">
+                    <p class="card-bottom__exp">Опыт 1 года</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <p class="card-bottom__tool">Figma</p>
+                    <p class="card-bottom__tool">Creative Suite</p>
+                    
+                    <p class="card-bottom__tool">Wireframing</p>
+                    <p class="card-bottom__tool">Adobe Illustrator</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <a href="#" class="card-bottom__show">Посмотреть весь профиль</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-top">
+                <img class="card-top__img" src="images/people1.png" alt="">
+                <a class="card-top__heart">
+                  <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.55078 5.97034C2.02202 4.87922 2.70149 3.89045 3.55117 3.0594C4.40149 2.22587 5.40404 1.56347 6.5043 1.10823C7.6452 0.634297 8.86888 0.391712 10.1043 0.394556C11.8375 0.394556 13.5285 0.869165 14.998 1.76565C15.3496 1.9801 15.6836 2.21565 16 2.47229C16.3164 2.21565 16.6504 1.9801 17.002 1.76565C18.4715 0.869165 20.1625 0.394556 21.8957 0.394556C23.1438 0.394556 24.3531 0.633619 25.4957 1.10823C26.5996 1.56526 27.5945 2.22268 28.4488 3.0594C29.2996 3.88952 29.9793 4.87851 30.4492 5.97034C30.9379 7.10588 31.1875 8.31174 31.1875 9.55276C31.1875 10.7235 30.9484 11.9434 30.4738 13.1844C30.0766 14.2215 29.507 15.2973 28.7793 16.3836C27.6262 18.1028 26.0406 19.8957 24.0719 21.7133C20.8094 24.7262 17.5785 26.8074 17.4414 26.8918L16.6082 27.4262C16.2391 27.6617 15.7645 27.6617 15.3953 27.4262L14.5621 26.8918C14.425 26.8039 11.1977 24.7262 7.93164 21.7133C5.96289 19.8957 4.37734 18.1028 3.22422 16.3836C2.49648 15.2973 1.92344 14.2215 1.52969 13.1844C1.05508 11.9434 0.816015 10.7235 0.816015 9.55276C0.812499 8.31174 1.06211 7.10588 1.55078 5.97034V5.97034ZM16 24.6453C16 24.6453 28.5156 16.6262 28.5156 9.55276C28.5156 5.97034 25.552 3.06643 21.8957 3.06643C19.3258 3.06643 17.0969 4.50081 16 6.59612C14.9031 4.50081 12.6742 3.06643 10.1043 3.06643C6.44805 3.06643 3.48438 5.97034 3.48438 9.55276C3.48438 16.6262 16 24.6453 16 24.6453Z" fill="#F5F5F5"/>
+                  </svg>
+                </a>
+                  
+              </div>
+              <div class="card-bottom">
+                <ul class="card-bottom__list">
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__name">
+                      Ciaran Jones
+                      <img class="card-bottom__flag" src="images/flag-us.svg">
+                    </h4>
+                    
+                    <a href="#" class="card-bottom__simile">В сравнение</a>
+                  </li>
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__speciality">A UX Designer</h4> 
+                    <img src="images/point.svg">
+                    <p class="card-bottom__exp">Опыт 2 года</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <p class="card-bottom__tool">Figma</p>
+                    <p class="card-bottom__tool">Creative Suite</p>
+                    
+                    <p class="card-bottom__tool">Prototyping</p>
+                    <p class="card-bottom__tool">Curiosity</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <a href="#" class="card-bottom__show">Посмотреть весь профиль</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-top">
+                <img class="card-top__img" src="images/people2.png" alt="">
+                <a class="card-top__heart">
+                  <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.55078 5.97034C2.02202 4.87922 2.70149 3.89045 3.55117 3.0594C4.40149 2.22587 5.40404 1.56347 6.5043 1.10823C7.6452 0.634297 8.86888 0.391712 10.1043 0.394556C11.8375 0.394556 13.5285 0.869165 14.998 1.76565C15.3496 1.9801 15.6836 2.21565 16 2.47229C16.3164 2.21565 16.6504 1.9801 17.002 1.76565C18.4715 0.869165 20.1625 0.394556 21.8957 0.394556C23.1438 0.394556 24.3531 0.633619 25.4957 1.10823C26.5996 1.56526 27.5945 2.22268 28.4488 3.0594C29.2996 3.88952 29.9793 4.87851 30.4492 5.97034C30.9379 7.10588 31.1875 8.31174 31.1875 9.55276C31.1875 10.7235 30.9484 11.9434 30.4738 13.1844C30.0766 14.2215 29.507 15.2973 28.7793 16.3836C27.6262 18.1028 26.0406 19.8957 24.0719 21.7133C20.8094 24.7262 17.5785 26.8074 17.4414 26.8918L16.6082 27.4262C16.2391 27.6617 15.7645 27.6617 15.3953 27.4262L14.5621 26.8918C14.425 26.8039 11.1977 24.7262 7.93164 21.7133C5.96289 19.8957 4.37734 18.1028 3.22422 16.3836C2.49648 15.2973 1.92344 14.2215 1.52969 13.1844C1.05508 11.9434 0.816015 10.7235 0.816015 9.55276C0.812499 8.31174 1.06211 7.10588 1.55078 5.97034V5.97034ZM16 24.6453C16 24.6453 28.5156 16.6262 28.5156 9.55276C28.5156 5.97034 25.552 3.06643 21.8957 3.06643C19.3258 3.06643 17.0969 4.50081 16 6.59612C14.9031 4.50081 12.6742 3.06643 10.1043 3.06643C6.44805 3.06643 3.48438 5.97034 3.48438 9.55276C3.48438 16.6262 16 24.6453 16 24.6453Z" fill="#F5F5F5"/>
+                  </svg>
+                </a>
+                  
+              </div>
+              <div class="card-bottom">
+                <ul class="card-bottom__list">
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__name">
+                      Anna Clarke
+                      <img class="card-bottom__flag" src="images/flag-uk.svg">
+                    </h4>
+                    
+                    <a href="#" class="card-bottom__simile">В сравнение</a>
+                  </li>
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__speciality">A UX Designer</h4> 
+                    <img src="images/point.svg">
+                    <p class="card-bottom__exp">Опыт 1 года</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <p class="card-bottom__tool">Figma</p>
+                    <p class="card-bottom__tool">Creative Suite</p>
+                   
+                    <p class="card-bottom__tool">Wireframing</p>
+                    <p class="card-bottom__tool">Adobe Illustrator</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <a href="#" class="card-bottom__show">Посмотреть весь профиль</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-top">
+                <img class="card-top__img" src="images/people3.png" alt="">
+                <a class="card-top__heart">
+                  <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.55078 5.97034C2.02202 4.87922 2.70149 3.89045 3.55117 3.0594C4.40149 2.22587 5.40404 1.56347 6.5043 1.10823C7.6452 0.634297 8.86888 0.391712 10.1043 0.394556C11.8375 0.394556 13.5285 0.869165 14.998 1.76565C15.3496 1.9801 15.6836 2.21565 16 2.47229C16.3164 2.21565 16.6504 1.9801 17.002 1.76565C18.4715 0.869165 20.1625 0.394556 21.8957 0.394556C23.1438 0.394556 24.3531 0.633619 25.4957 1.10823C26.5996 1.56526 27.5945 2.22268 28.4488 3.0594C29.2996 3.88952 29.9793 4.87851 30.4492 5.97034C30.9379 7.10588 31.1875 8.31174 31.1875 9.55276C31.1875 10.7235 30.9484 11.9434 30.4738 13.1844C30.0766 14.2215 29.507 15.2973 28.7793 16.3836C27.6262 18.1028 26.0406 19.8957 24.0719 21.7133C20.8094 24.7262 17.5785 26.8074 17.4414 26.8918L16.6082 27.4262C16.2391 27.6617 15.7645 27.6617 15.3953 27.4262L14.5621 26.8918C14.425 26.8039 11.1977 24.7262 7.93164 21.7133C5.96289 19.8957 4.37734 18.1028 3.22422 16.3836C2.49648 15.2973 1.92344 14.2215 1.52969 13.1844C1.05508 11.9434 0.816015 10.7235 0.816015 9.55276C0.812499 8.31174 1.06211 7.10588 1.55078 5.97034V5.97034ZM16 24.6453C16 24.6453 28.5156 16.6262 28.5156 9.55276C28.5156 5.97034 25.552 3.06643 21.8957 3.06643C19.3258 3.06643 17.0969 4.50081 16 6.59612C14.9031 4.50081 12.6742 3.06643 10.1043 3.06643C6.44805 3.06643 3.48438 5.97034 3.48438 9.55276C3.48438 16.6262 16 24.6453 16 24.6453Z" fill="#F5F5F5"/>
+                  </svg>
+                </a>
+                  
+              </div>
+              <div class="card-bottom">
+                <ul class="card-bottom__list">
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__name">
+                      Emma Khan
+                      <img class="card-bottom__flag" src="images/flag-india.svg">
+                    </h4>
+                    
+                    <a href="#" class="card-bottom__simile">В сравнение</a>
+                  </li>
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__speciality">A UX Designer</h4> 
+                    <img src="images/point.svg">
+                    <p class="card-bottom__exp">Опыт 1 года</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <p class="card-bottom__tool">Figma</p>
+                    <p class="card-bottom__tool">Creative Suite</p>
+                    
+                    <p class="card-bottom__tool">Wireframing</p>
+                    <p class="card-bottom__tool">Adobe Illustrator</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <a href="#" class="card-bottom__show">Посмотреть весь профиль</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-top">
+                <img class="card-top__img" src="images/people1.png" alt="">
+                <a class="card-top__heart">
+                  <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.55078 5.97034C2.02202 4.87922 2.70149 3.89045 3.55117 3.0594C4.40149 2.22587 5.40404 1.56347 6.5043 1.10823C7.6452 0.634297 8.86888 0.391712 10.1043 0.394556C11.8375 0.394556 13.5285 0.869165 14.998 1.76565C15.3496 1.9801 15.6836 2.21565 16 2.47229C16.3164 2.21565 16.6504 1.9801 17.002 1.76565C18.4715 0.869165 20.1625 0.394556 21.8957 0.394556C23.1438 0.394556 24.3531 0.633619 25.4957 1.10823C26.5996 1.56526 27.5945 2.22268 28.4488 3.0594C29.2996 3.88952 29.9793 4.87851 30.4492 5.97034C30.9379 7.10588 31.1875 8.31174 31.1875 9.55276C31.1875 10.7235 30.9484 11.9434 30.4738 13.1844C30.0766 14.2215 29.507 15.2973 28.7793 16.3836C27.6262 18.1028 26.0406 19.8957 24.0719 21.7133C20.8094 24.7262 17.5785 26.8074 17.4414 26.8918L16.6082 27.4262C16.2391 27.6617 15.7645 27.6617 15.3953 27.4262L14.5621 26.8918C14.425 26.8039 11.1977 24.7262 7.93164 21.7133C5.96289 19.8957 4.37734 18.1028 3.22422 16.3836C2.49648 15.2973 1.92344 14.2215 1.52969 13.1844C1.05508 11.9434 0.816015 10.7235 0.816015 9.55276C0.812499 8.31174 1.06211 7.10588 1.55078 5.97034V5.97034ZM16 24.6453C16 24.6453 28.5156 16.6262 28.5156 9.55276C28.5156 5.97034 25.552 3.06643 21.8957 3.06643C19.3258 3.06643 17.0969 4.50081 16 6.59612C14.9031 4.50081 12.6742 3.06643 10.1043 3.06643C6.44805 3.06643 3.48438 5.97034 3.48438 9.55276C3.48438 16.6262 16 24.6453 16 24.6453Z" fill="#F5F5F5"/>
+                  </svg>
+                </a>
+                  
+              </div>
+              <div class="card-bottom">
+                <ul class="card-bottom__list">
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__name">
+                      Ciaran Jones
+                      <img class="card-bottom__flag" src="images/flag-us.svg">
+                    </h4>
+                    
+                    <a href="#" class="card-bottom__simile">В сравнение</a>
+                  </li>
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__speciality">A UX Designer</h4> 
+                    <img src="images/point.svg">
+                    <p class="card-bottom__exp">Опыт 2 года</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <p class="card-bottom__tool">Figma</p>
+                    <p class="card-bottom__tool">Creative Suite</p>
+                   
+                    <p class="card-bottom__tool">Prototyping</p>
+                    <p class="card-bottom__tool">Curiosity</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <a href="#" class="card-bottom__show">Посмотреть весь профиль</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-top">
+                <img class="card-top__img" src="images/people2.png" alt="">
+                <a class="card-top__heart">
+                  <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.55078 5.97034C2.02202 4.87922 2.70149 3.89045 3.55117 3.0594C4.40149 2.22587 5.40404 1.56347 6.5043 1.10823C7.6452 0.634297 8.86888 0.391712 10.1043 0.394556C11.8375 0.394556 13.5285 0.869165 14.998 1.76565C15.3496 1.9801 15.6836 2.21565 16 2.47229C16.3164 2.21565 16.6504 1.9801 17.002 1.76565C18.4715 0.869165 20.1625 0.394556 21.8957 0.394556C23.1438 0.394556 24.3531 0.633619 25.4957 1.10823C26.5996 1.56526 27.5945 2.22268 28.4488 3.0594C29.2996 3.88952 29.9793 4.87851 30.4492 5.97034C30.9379 7.10588 31.1875 8.31174 31.1875 9.55276C31.1875 10.7235 30.9484 11.9434 30.4738 13.1844C30.0766 14.2215 29.507 15.2973 28.7793 16.3836C27.6262 18.1028 26.0406 19.8957 24.0719 21.7133C20.8094 24.7262 17.5785 26.8074 17.4414 26.8918L16.6082 27.4262C16.2391 27.6617 15.7645 27.6617 15.3953 27.4262L14.5621 26.8918C14.425 26.8039 11.1977 24.7262 7.93164 21.7133C5.96289 19.8957 4.37734 18.1028 3.22422 16.3836C2.49648 15.2973 1.92344 14.2215 1.52969 13.1844C1.05508 11.9434 0.816015 10.7235 0.816015 9.55276C0.812499 8.31174 1.06211 7.10588 1.55078 5.97034V5.97034ZM16 24.6453C16 24.6453 28.5156 16.6262 28.5156 9.55276C28.5156 5.97034 25.552 3.06643 21.8957 3.06643C19.3258 3.06643 17.0969 4.50081 16 6.59612C14.9031 4.50081 12.6742 3.06643 10.1043 3.06643C6.44805 3.06643 3.48438 5.97034 3.48438 9.55276C3.48438 16.6262 16 24.6453 16 24.6453Z" fill="#F5F5F5"/>
+                  </svg>
+                </a>
+                  
+              </div>
+              <div class="card-bottom">
+                <ul class="card-bottom__list">
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__name">
+                      Anna Clarke
+                      <img class="card-bottom__flag" src="images/flag-uk.svg">
+                    </h4>
+                    
+                    <a href="#" class="card-bottom__simile">В сравнение</a>
+                  </li>
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__speciality">A UX Designer</h4> 
+                    <img src="images/point.svg">
+                    <p class="card-bottom__exp">Опыт 1 года</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <p class="card-bottom__tool">Figma</p>
+                    <p class="card-bottom__tool">Creative Suite</p>
+                    
+                    <p class="card-bottom__tool">Wireframing</p>
+                    <p class="card-bottom__tool">Adobe Illustrator</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <a href="#" class="card-bottom__show">Посмотреть весь профиль</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-top">
+                <img class="card-top__img" src="images/people3.png" alt="">
+                <a class="card-top__heart">
+                  <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.55078 5.97034C2.02202 4.87922 2.70149 3.89045 3.55117 3.0594C4.40149 2.22587 5.40404 1.56347 6.5043 1.10823C7.6452 0.634297 8.86888 0.391712 10.1043 0.394556C11.8375 0.394556 13.5285 0.869165 14.998 1.76565C15.3496 1.9801 15.6836 2.21565 16 2.47229C16.3164 2.21565 16.6504 1.9801 17.002 1.76565C18.4715 0.869165 20.1625 0.394556 21.8957 0.394556C23.1438 0.394556 24.3531 0.633619 25.4957 1.10823C26.5996 1.56526 27.5945 2.22268 28.4488 3.0594C29.2996 3.88952 29.9793 4.87851 30.4492 5.97034C30.9379 7.10588 31.1875 8.31174 31.1875 9.55276C31.1875 10.7235 30.9484 11.9434 30.4738 13.1844C30.0766 14.2215 29.507 15.2973 28.7793 16.3836C27.6262 18.1028 26.0406 19.8957 24.0719 21.7133C20.8094 24.7262 17.5785 26.8074 17.4414 26.8918L16.6082 27.4262C16.2391 27.6617 15.7645 27.6617 15.3953 27.4262L14.5621 26.8918C14.425 26.8039 11.1977 24.7262 7.93164 21.7133C5.96289 19.8957 4.37734 18.1028 3.22422 16.3836C2.49648 15.2973 1.92344 14.2215 1.52969 13.1844C1.05508 11.9434 0.816015 10.7235 0.816015 9.55276C0.812499 8.31174 1.06211 7.10588 1.55078 5.97034V5.97034ZM16 24.6453C16 24.6453 28.5156 16.6262 28.5156 9.55276C28.5156 5.97034 25.552 3.06643 21.8957 3.06643C19.3258 3.06643 17.0969 4.50081 16 6.59612C14.9031 4.50081 12.6742 3.06643 10.1043 3.06643C6.44805 3.06643 3.48438 5.97034 3.48438 9.55276C3.48438 16.6262 16 24.6453 16 24.6453Z" fill="#F5F5F5"/>
+                  </svg>
+                </a>
+                  
+              </div>
+              <div class="card-bottom">
+                <ul class="card-bottom__list">
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__name">
+                      Emma Khan
+                      <img class="card-bottom__flag" src="images/flag-india.svg">
+                    </h4>
+                    
+                    <a href="#" class="card-bottom__simile">В сравнение</a>
+                  </li>
+                  <li class="card-bottom__item">
+                    <h4 class="card-bottom__speciality">A UX Designer</h4> 
+                    <img src="images/point.svg">
+                    <p class="card-bottom__exp">Опыт 1 года</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <p class="card-bottom__tool">Figma</p>
+                    <p class="card-bottom__tool">Creative Suite</p>
+                    
+                    <p class="card-bottom__tool">Wireframing</p>
+                    <p class="card-bottom__tool">Adobe Illustrator</p>
+                  </li>
+                  <li class="card-bottom__item">
+                    <a href="#" class="card-bottom__show">Посмотреть весь профиль</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="about">
+      <div class="container">
+        <div class="about__inner">
+          <h4 class="about__title">о нас</h4>
+        </div>
+        
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="container">
+        <hr class="line">
+        <div class="footer__inner">
+          <ul class="footer__list">
+            <li class="footer__item">
+              <a href="#" class="footer__item-text">Product Managers</a>
+            </li>
+            <li class="footer__item">
+              <a href="#" class="footer__item-text">Project Managers</a>
+            </li>
+            <li class="footer__item">
+              <a href="#" class="footer__item-text">UX/UI Designers</a>
+            </li>
+            <li class="footer__item">
+              <a href="#" class="footer__item-text">Backend</a>
+            </li>
+            <li class="footer__item">
+              <a href="#" class="footer__item-text">Frontend</a>
+            </li>
+            <li class="footer__item">
+              <a href="#" class="footer__item-text">Marketing</a>
+            </li>
+            <li class="footer__item">
+              <a href="#" class="footer__item-text">QA</a>
+            </li>
+          </ul>
+          <p class="footer__copyright">Copyright 2022 - IT Hunt</p>
+        </div>
+        
+      </div>
+    </footer>
+
+    <script src="js/main.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  </body>
+</html>

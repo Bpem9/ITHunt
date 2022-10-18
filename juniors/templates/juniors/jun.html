@@ -17,12 +17,12 @@
         {% if junior.url_img %}
         <img class="relations__img" src="{{ junior.url_img.url }}" />
         {% else %}
-        <img class="relations__img" src="{% static 'juniors/images/coder.gif' %}" />
+        <img class="relations__img" src="{% static 'juniors/app/images/coder.gif' %}" />
         {% endif %}
         <ul class="relations__box">
           <li class="relations__item">
             <h4 class="relations__item-title">{{ junior.first_name }} {{ junior.last_name }}</h4>
-            <img src="{% static 'juniors/images/flag-us.svg' %}" alt="flag-us" class="relations__item-img" />
+            <img src="{% static 'juniors/app/images/flag-us.svg' %}" alt="flag-us" class="relations__item-img" />
           </li>
           <li class="relations__item">
             <p class="relations__item-text">{{ junior.position.position }}-специалист, {{ junior.exp }} опыта</p>
@@ -116,11 +116,11 @@
           <h4 class="card-tabs__work__title">Work Experience</h4>
           <div class="card-tabs__work__content">
             <div class="card-tabs__work__content-left">
-              <img src="{% static 'juniors/images/workPic.png' %}" alt="workpic" class="card-tabs__work__content-img" />
+              <img src="{% static 'juniors/app/images/workPic.png' %}" alt="workpic" class="card-tabs__work__content-img" />
               <div class="card-tabs__work__content-box">
                 <p class="card-tabs__work__content-title">UX/UI Designer</p>
                 <p class="card-tabs__work__content-text">General Assembly</p>
-                <img class="card-tabs__work__content-textImg" alt="dot" src="{% static 'juniors/images/dot.svg' %}" />
+                <img class="card-tabs__work__content-textImg" alt="dot" src="{% static 'juniors/app/images/dot.svg' %}" />
                 <p class="card-tabs__work__content-text">Apprenticeship</p>
               </div>
             </div>
@@ -134,11 +134,11 @@
           <h4 class="card-tabs__work__title">Education</h4>
           <div class="card-tabs__work__content">
             <div class="card-tabs__work__content-left">
-              <img src="{% static 'juniors/images/workPic.png' %}" alt="workpic" class="card-tabs__work__content-img" />
+              <img src="{% static 'juniors/app/images/workPic.png' %}" alt="workpic" class="card-tabs__work__content-img" />
               <div class="card-tabs__work__content-box">
                 <p class="card-tabs__work__content-title">General Assembly</p>
                 <p class="card-tabs__work__content-text">UI/UX Design</p>
-                <img class="card-tabs__work__content-textImg" alt="dot" src="{% static 'juniors/images/dot.svg' %}" />
+                <img class="card-tabs__work__content-textImg" alt="dot" src="{% static 'juniors/app/images/dot.svg' %}" />
                 <p class="card-tabs__work__content-text">Apprenticeship</p>
               </div>
             </div>

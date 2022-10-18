@@ -1,0 +1,28 @@
+{
+  "name": "gulp-start",
+  "version": "1.0.0",
+  "description": "First project gulp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yehor Hryhortsev",
+  "license": "ISC",
+  "devDependencies": {
+    "air-datepicker": "^3.3.0",
+    "browser-sync": "^2.27.10",
+    "del": "^6.1.1",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-uglify-es": "^3.0.0",
+    "jquery": "^3.6.0",
+    "jquery-ui": "^1.13.2",
+    "jquery-ui-touch-punch": "^0.2.3",
+    "normalize.css": "^8.0.1",
+    "sass": "^1.53.0",
+    "slick-carousel": "^1.8.1"
+  }
+}

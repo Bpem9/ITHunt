@@ -17,8 +17,8 @@
     <div id="main" class="tab-content main"></div>
     <div id="profile" class="tab-content profile">
       <div class="profile__header">
-        {% if user.junior.url_img %}
-        <img class="profile__header-img" src="{{ user.junior.url_img.url }}">
+        {% if junior.url_img %}
+        <img class="profile__header-img" src="{{ junior.url_img.url }}">
         {% else %}
         <img
           class="profile__header-img"
@@ -29,7 +29,11 @@
         <div class="profile__header-info">
           <div class="profile__header-info__box">
           <h3 class="profile__header-text">{{ junior.first_name }} {{ junior.last_name }}</h3>
-          <img class="profile__header-flag" src="images/flag-india.svg" alt="flag">
+            {% if junior.country.image %}
+          <img class="profile__header-flag" src="{{ junior.country.image.url }}" alt="flag">
+            {% else %}
+          <img class="profile__header-flag" src="{% static 'juniors/app/images/flag-india.svg' %}" alt="flag">
+            {% endif %}
           </div>
           <a href="#" class="profile__header-btn">Редактировать профиль</a>
         </div>

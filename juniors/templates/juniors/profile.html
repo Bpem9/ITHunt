@@ -104,60 +104,54 @@
           </li>
         </ul>
         <div class="profile__main-work__wrapper">
-        <div class="profile__main-work">
-          <h4 class="profile__main-work__title">Work Experience</h4>
-          <div class="profile__main-work__content">
-            <div class="profile__main-work__content-left">
-              <img
-                src="{% static 'juniors/images/workPic.png' %}"
-                alt="workpic"
-                class="profile__main-work__content-img"
-              />
-              <div class="profile__main-work__content-box">
-                <p class="profile__main-work__content-title">
-                  IT Recruiter
-                </p>
-                <p class="profile__main-work__content-text">StarSoft</p>
-                <img
-                  class="profile__main-work__content-textImg"
-                  alt="dot"
-                  src="{% static 'juniors/images/dot.svg' %}"
-                />
-                <p class="profile__main-work__content-text">Full-time</p>
+          <div class="profile__main-work">
+            <h4 class="profile__main-work__title">Work Experience</h4>
+            <div class="profile__main-work__content">
+              <div class="profile__main-work__content-left">
+                <img src="{% static 'juniors/app/images/workPic.png' %}" alt="workpic" class="profile__main-work__content-img" />
+                <div class="profile__main-work__content-box">
+                  <p class="profile__main-work__content-title">IT Recruiter</p>
+                  <p class="profile__main-work__content-text">StarSoft</p>
+                  <img class="profile__main-work__content-textImg" alt="dot" src="{% static 'juniors/app/images/dot.svg' %}" />
+                  <p class="profile__main-work__content-text">Full-time</p>
+                </div>
+              </div>
+              <div class="profile__main-work__content-right">
+                <p class="profile__main-work__content-right__text">Dec 2020 — Present</p>
+              </div>
+              <div class="profile__main-work__content-workedit">
+                <button class="profile__main-work__content-workedit__btn">Редактировать</button>
+                <div class="profile__main-work__content-workhidden">
+                  <div class="profile__main-work__content-workhidden__inner">
+                    <h4 class="profile__main-work__content-workhidden__title">Редактировать мой опыт</h4>
+                    <form class="profile__main-work__content-workhidden__form" action="#">
+                      <label class="profile__main-work__content-workhidden__name" for="#">Роль</label>
+                      <input class="profile__main-work__content-workhidden__input" type="text" />
+                      <label class="profile__main-work__content-workhidden__name" for="#">Компания</label>
+                      <input class="profile__main-work__content-workhidden__input" type="text" />
+                      <label class="profile__main-work__content-workhidden__name" for="#">Вид занятости</label>
+                      <select class="profile__main-work__content-workhidden__select">
+                        <option value="1" class="profile__main-work__content-workhidden__select-option">Full-time</option>
+                        <option value="2" class="profile__main-work__content-workhidden__select-option">Part-time</option>
+                        <option value="3" class="profile__main-work__content-workhidden__select-option">Mixed</option>
+                      </select>
+
+                      <div class="profile__main-work__content-workhidden__box">
+                        <input type="checkbox" class="profile__main-work__content-workhidden__checkbox" />
+                        <label class="profile__main-work__content-workhidden__checkbox-label">Я все еще тут работаю </label>
+                      </div>
+                    </form>
+                    <div class="profile__main-work__content-workhidden__btnbox">
+                      <button class="profile__main-work__content-workhidden__btnbox__save">Сохранить</button>
+                      <button class="profile__main-work__content-workhidden__btnbox__del">Удалить</button>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
-            <div class="profile__main-work__content-right">
-              <p class="profile__main-work__content-right__text">
-                Dec 2020 — Present
-              </p>
-            </div>
-<!--            <div class="profile__main-work__content-eduedit">-->
-<!--              <button class="profile__main-work__content-eduedit__btn">Редактировать</button>-->
-<!--              <div class="profile__main-work__content-eduhidden">-->
-<!--                <div class="profile__main-work__content-eduhidden__inner">-->
-<!--                  <h4 class="profile__main-work__content-eduhidden__title">Редактировать образование</h4>-->
-<!--                  <form class="profile__main-work__content-eduhidden__form" action="#">-->
-<!--                    <label class="profile__main-work__content-eduhidden__name" for="#">Учебное заведение</label>-->
-<!--                    <input class="profile__main-work__content-eduhidden__input" type="text" />-->
-<!--                    <label class="profile__main-work__content-eduhidden__name" for="#">Специальность</label>-->
-<!--                    <input class="profile__main-work__content-eduhidden__input" type="text" />-->
-<!--                    <label class="profile__main-work__content-eduhidden__name" for="#">Степень</label>-->
-<!--                    <select class="profile__main-work__content-eduhidden__select">-->
-<!--                      <option value="1" class="profile__main-work__content-eduhidden__select-option">Бакалавр</option>-->
-<!--                      <option value="2" class="profile__main-work__content-eduhidden__select-option">Специалист</option>-->
-<!--                      <option value="3" class="profile__main-work__content-eduhidden__select-option">Магистр</option>-->
-<!--                    </select>-->
-<!--                  </form>-->
-<!--                  <div class="profile__main-work__content-eduhidden__btnbox">-->
-<!--                    <button class="profile__main-work__content-eduhidden__btnbox__save">Сохранить</button>-->
-<!--                    <button class="profile__main-work__content-eduhidden__btnbox__del">Удалить</button>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
+            <button class="profile__main-workbtn btn">Добавить</button>
           </div>
-          <button class="profile__main-workbtn btn">Добавить</button>
-        </div>
         <div class="profile__main-work">
           <h4 class="profile__main-work__title">Education</h4>
           <div class="profile__main-work__content">

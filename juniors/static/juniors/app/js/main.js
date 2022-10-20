@@ -41,8 +41,8 @@ $(function () {
     // console.log(1)
     $('.profile__main-work__content-eduhidden').toggleClass('profile__main-work__content-eduhidden--active')
   })
-  let val1 = +$('#amount1').text()
-  let val2 = +$('#amount2').text()
+  let val1 = +$('#amount1').val()
+  let val2 = +$('#amount2').val()
   // console.log(val1)
   $('#slider-range').slider({
     range: true,
@@ -50,8 +50,8 @@ $(function () {
     max: val2,
     values: [val1, val2],
     slide: function (event, ui) {
-      $('#amount1').text('€' + ui.values[0] + 'K')
-      $('#amount2').text('€' + ui.values[1] + 'K')
+      $('#amount1').val( ui.values[0] )
+      $('#amount2').val(ui.values[1] )
     },
   })
   $('#amount').val('$' + $('#slider-range').slider('values', 0) + ' - $' + $('#slider-range').slider('values', 1))

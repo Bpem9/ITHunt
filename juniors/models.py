@@ -106,16 +106,16 @@ class SoftSkills(models.Model):
         return reverse('softskills', kwargs={'sf_id': self.pk})
 
 class JuniorSoftskills(models.Model):
-    softskill = models.ForeignKey('SoftSkills', on_delete=models.PROTECT)
+    skill = models.ForeignKey('SoftSkills', on_delete=models.PROTECT)
     junior = models.ForeignKey('Junior', on_delete=models.PROTECT)
 
     class Meta:
-        unique_together = [['junior', 'softskill']]
+        unique_together = [['junior', 'skill']]
         verbose_name = 'Связь Джун - Софт-скилл'
         verbose_name_plural = 'Связи Джун - Софт-скилл'
 
     def __str__(self):
-        return f'{self.junior} - {self.softskill}'
+        return f'{self.junior} - {self.skill}'
 
 
 # ===========================
@@ -135,16 +135,16 @@ class Tools(models.Model):
         return reverse('tools', kwargs={'tl_id': self.pk})
 
 class JuniorTools(models.Model):
-    tool = models.ForeignKey('Tools', on_delete=models.PROTECT)
+    skill = models.ForeignKey('Tools', on_delete=models.PROTECT)
     junior = models.ForeignKey('Junior', on_delete=models.PROTECT)
 
     class Meta:
-        unique_together = [['junior', 'tool']]
+        unique_together = [['junior', 'skill']]
         verbose_name = 'Связь Джун - Технология'
         verbose_name_plural = 'Связи Джун - Технология'
 
     def __str__(self):
-        return f'{self.junior} - {self.tool}'
+        return f'{self.junior} - {self.skill}'
 
 # ===========================
 
@@ -163,14 +163,14 @@ class Hardskills(models.Model):
             return reverse('hardskills', kwargs={'hd_id': self.pk})
 
 class JuniorHardskills(models.Model):
-        hardskill = models.ForeignKey('Hardskills', on_delete=models.PROTECT)
+        skill = models.ForeignKey('Hardskills', on_delete=models.PROTECT)
         junior = models.ForeignKey('Junior', on_delete=models.PROTECT)
 
         class Meta:
-            unique_together = [['junior', 'hardskill']]
+            unique_together = [['junior', 'skill']]
             verbose_name = 'Связь Джун - Хард-скилл'
             verbose_name_plural = 'Связи Джун - Хард-скилл'
 
         def __str__(self):
-            return f'{self.junior} - {self.hardskill}'
+            return f'{self.junior} - {self.skill}'
 

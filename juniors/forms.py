@@ -26,25 +26,3 @@ class JunUpdatingForm(forms.ModelForm):
             'last_name': forms.TextInput(attrs={'class': 'profile__header-text'}),
             'description': forms.Textarea(attrs={'class': 'profile__main-textarea'}),
             }
-
-
-class SoftSkillsUpdate(forms.ModelForm):
-    class Meta:
-        model = JuniorSoftskills
-        fields = ['softskill']
-class HardskillsUpdate(forms.ModelForm):
-    class Meta:
-        model = JuniorHardskills
-        fields = ['hardskill']
-class ToolsUpdate(forms.ModelForm):
-    class Meta:
-        model = JuniorTools
-        fields = ['tool']
-
-# class OrderForm(forms.Form):
-#     CHOICES = (
-#         ('first_name', 'По алфавиту'),
-#         ('salary', 'По зарплате'),
-#         ('country', 'По локации'),
-#     )
-#     order = forms.ChoiceField(choices=CHOICES)

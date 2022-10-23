@@ -12,7 +12,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .forms import *
-from .utils import SkillsFilters
+from .utils import SkillsFilters, SkillControl
 
 
 
@@ -82,82 +82,49 @@ class JuniorsPosition(SkillsFilters, ListView):
         return super().get_sorted_queryset(juniors)
 
 
-class JuniorProfile(ModelFormMixin, DetailView):
+class JuniorProfile(SkillControl, DetailView):
     model = Junior
-    form_class = JunUpdatingForm
     template_name = 'juniors/profile.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Личный кабинет'
         context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
-        context['softskillsup'] = SoftSkillsUpdate
-        context['hardskillup'] = HardskillsUpdate
-        context['toolsup'] = ToolsUpdate
+        context['hardskills'] = Hardskills.objects.all()
+        context['softskills'] = SoftSkills.objects.all()
+        context['tools'] = Tools.objects.all()
         return context
 
-    def post(self, request, *args, **kwargs):
-        if request.POST.get('first_name'):
-            jun = Junior.objects.get(slug=request.user.junior.slug)
-            form = JunUpdatingForm(request.POST, instance=jun)
-            if form.is_valid():
-                form.save()
-                return redirect('profile')
-            else:
-                print('='*10, form.errors, '='*10)
-                return redirect('profile')
+    def get(self, request, *args, **kwargs):
+        ac = request.GET.get('ac')
+        if ac == 'add':
+            self._add_skill(request, *args, **kwargs)
+        elif ac == 'del':
+            self._del_skill(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
-        if request.POST.get('hardskill'):
-            instance = JuniorHardskills(junior=self.request.user.junior, hardskill=Hardskills.objects.get(id=self.request.POST.get('hardskill')))
-            form = HardskillsUpdate(self.request.POST, instance=instance)
-            print(form.errors)
-            if form.is_valid():
-                try:
-                    form.save()
-                except Exception as e:
-                    form.add_error(None, e.__cause__)
-                finally:
-                    return redirect('profile')
-        elif request.POST.get('softskill'):
-            instance = JuniorSoftskills(junior=self.request.user.junior, softskill=SoftSkills.objects.get(id=self.request.POST.get('softskill')))
-            form = SoftSkillsUpdate(request.POST, instance=instance)
-            if form.is_valid():
-                try:
-                    form.save()
-                    return redirect('profile')
-                except Exception as e:
-                    form.add_error(None, e.__cause__)
-                finally:
-                    return redirect('profile')
-            else:
-                return redirect('profile')
-        elif request.POST.get('tool'):
-            instance = JuniorTools(junior=self.request.user.junior, tool=Tools.objects.get(id=self.request.POST.get('tool')))
-            form = ToolsUpdate(self.request.POST, instance=instance)
-            print(form.errors)
-            if form.is_valid():
-                try:
-                    form.save()
-                    return redirect('profile')
-                except Exception as e:
-                    form.add_error(None, e.__cause__)
-                finally:
-                    return redirect('profile')
-            else:
-                return redirect('profile')
+    # def get_initial(self):
+    #     initial = super().get_initial()
+    #     jun = self.request.user.junior
+    #     initial['first_name'] = jun.first_name
+    #     initial['last_name'] = jun.last_name
+    #     initial['position'] = jun.position
+    #     initial['description'] = jun.description
+    #     return initial
 
-        elif request.POST.get('del'):
-            print('del работает')
-            return render(HttpResponse('del работает'))
+    def _add_skill(self, request, *args, **kwargs):
+        try:
+            super()._add_skill(self, request, *args, **kwargs)
+        except Exception as e:
+            print(e)
+        return super().get(request, *args, **kwargs)
 
-    def get_initial(self):
-        initial = super().get_initial()
-        jun = self.request.user.junior
-        initial['first_name'] = jun.first_name
-        initial['last_name'] = jun.last_name
-        initial['position'] = jun.position
-        initial['description'] = jun.description
-        return initial
+    def _del_skill(self, request, *args, **kwargs):
+        try:
+            super()._del_skill(self, request, *args, **kwargs)
+        except Exception as e:
+            print(e)
+        return super().get(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         return Junior.objects.get(slug=self.kwargs['jun_slug'])

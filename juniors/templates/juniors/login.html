@@ -12,6 +12,7 @@
               <div class="invalid-feedback">{{ i.errors }}</div>
             </div>
         {% endfor %}
+        <a class="header__account-link" href="{% url 'registration' %}">Регистрация</a>
         <button class="btn btn-primary" type="submit">Войти</button>
     </form>
 </div>

@@ -140,12 +140,21 @@ class JuniorUpdate(UpdateView):
         context = super().get_context_data(**kwargs)
         context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
         return context
+
     def post(self, request, *args, **kwargs):
         form = JunUpdatingForm(request.POST)
         if form.is_valid():
             print(form)
             form.save()
         return redirect('profile')
+
+    # def get_object(self, queryset=None):
+    #     try:
+    #         return queryset.get(slug=self.request.user.juniors.slug)
+    #     except Exception as e:
+    #         print(e)
+    #     return queryset.get(id=self.request.user.pk)
+
 
 
 class RegisterJunior(CreateView):
@@ -161,11 +170,12 @@ class RegisterJunior(CreateView):
     def post(self, request, *args, **kwargs):
         form = UserRegForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('profile')
+            user = form.save()
+            Junior.objects.create(username=user)
+            return redirect('index')
         else:
             form = UserRegForm()
-
+        return redirect('index')
 
 class LoginUser(LoginView):
     form_class = LoginUserForm
@@ -182,3 +192,6 @@ class LoginUser(LoginView):
 def userlogout(request):
     logout(request)
     return redirect('index')
+
+def New(UpdateView):
+    model = Junior

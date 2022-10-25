@@ -22,7 +22,11 @@
         <ul class="relations__box">
           <li class="relations__item">
             <h4 class="relations__item-title">{{ junior.first_name }} {{ junior.last_name }}</h4>
-            <img src="{% static 'juniors/app/images/flag-us.svg' %}" alt="flag-us" class="relations__item-img" />
+            {% if junior.country.image %}
+            <img src="{{ junior.country.image.url }}" alt="flag" class="relations__item-img" >
+            {% else %}
+            <img src="{% static 'juniors/app/images/flag-us.svg' %}" alt="flag-us" class="relations__item-img" >
+            {% endif %}
           </li>
           <li class="relations__item">
             <p class="relations__item-text">{{ junior.position.position }}-специалист, {{ junior.exp }} опыта</p>

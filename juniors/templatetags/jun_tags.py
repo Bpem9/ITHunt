@@ -67,4 +67,6 @@ def messengers_icons(slug):
 
 @register.filter()
 def spl(value):
-    return value.split(', ')
+    if value:
+        return value.split(', ')
+    return 'Вы не указали языков, так что русский'

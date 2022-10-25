@@ -55,11 +55,11 @@
     }
     &__account-userlink{
       margin-left: 20px;
+      &:hover .header__user-svg{
+        fill:#EAE7EA;
+      }
     
   }
-    &__user-svg:hover{
-      fill:#EAE7EA;
-    }
 }
 .search-form {
   display: flex;
@@ -202,8 +202,8 @@
     &__label {
       @extend %medium;
       color: #747473;
-      font-size: 16px;
-      line-height: 18px;
+      font-size: 12px;
+    line-height: 12px;
       // margin-bottom: 30px;
       user-select: none;
     }
@@ -213,7 +213,7 @@
       margin-bottom: 36px;
     }
     &__input {
-      margin-right: 16px;
+      margin-right: 8px;
 
       width: 21px;
       height: 21px;
@@ -297,20 +297,14 @@ details summary::marker {
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
-  &__input {
-    max-width: 100px;
-    // background-color: rgb(255, 255, 255);
-    border: none;
-    outline: none;
-    @extend %bold;
-    font-size: 14px;
-    line-height: 16px;
-    &:nth-child(2) {
-      text-align: right;
-    }
+  &__input-text{
+    
 
     &:nth-child(1) {
       position: relative;
+      .slider-range__input{
+        text-align: start;
+      }
       &::before {
         content: 'from';
         position: absolute;
@@ -338,6 +332,16 @@ details summary::marker {
         color: #747473;
       }
     }
+  }
+  &__input {
+    max-width: 96px;
+    // background-color: rgb(255, 255, 255);
+    border: none;
+    outline: none;
+    @extend %bold;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: end;
   }
 }
 //Polzynok stili

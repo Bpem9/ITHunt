@@ -331,6 +331,25 @@
     .card-bottom__item {
       gap: 4px 7px;
     }
+    .card-bottom__name {
+      font-size: 14px;
+      line-height: 15px;
+    }
+    .card-bottom__simile {
+      font-size: 10px;
+      line-height: 14px;
+      color: #747473;
+      position: relative;
+  }
+  .card-bottom__flag {
+    margin-left: 2px;
+    width: 14%;
+  }
+  .card-bottom__speciality,
+   .card-bottom__exp{
+    font-size: 13px;
+    line-height: 14px;
+  }
   }
   .about__title {
     margin-top: 30px;
@@ -631,6 +650,9 @@
     z-index: 10;
     position: relative;
   }
+  .cards .cards-side__box-form {
+    max-width: 100%;
+}
   .cards-side__inner {
     margin-bottom: 0px !important;
   }

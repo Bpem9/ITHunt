@@ -24,7 +24,7 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['django-ithunt.herokuapp.com', '127.0.0.1']
@@ -80,24 +80,24 @@ WSGI_APPLICATION = 'juniorshop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 #
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': 'ec2-52-31-70-136.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
-    }
-}
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'juniors',
-#         'USER': 'postgres',
-#         'PASSWORD': 'admin',
+#         'NAME': os.getenv('DB_NAME'),
+#         'USER': os.getenv('DB_USER'),
+#         'PASSWORD': os.getenv('DB_PASSWORD'),
+#         'HOST': 'ec2-52-31-70-136.eu-west-1.compute.amazonaws.com',
+#         'PORT': '5432',
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'juniors',
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
+    }
+}
 
 
 # Password validation

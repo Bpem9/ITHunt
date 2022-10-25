@@ -8,11 +8,12 @@ from .models import *
 from .filters import *
 from .GdrvtoSQL.stuff import lst_juns, hrds, tolls, sfts, poss, countries
 from slugify import slugify
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.views import LoginView
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .forms import *
 from .utils import SkillsFilters, SkillControl
+from django.db.models import Max
 
 
 
@@ -142,11 +143,14 @@ class JuniorUpdate(UpdateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        form = JunUpdatingForm(request.POST)
+        instance=Junior.objects.get(slug=kwargs['jun_slug'])
+        form = JunUpdatingForm(request.POST, instance=instance)
         if form.is_valid():
-            print(form)
             form.save()
-        return redirect('profile')
+            return redirect('profile', jun_slug=kwargs['jun_slug'])
+        else:
+            form = JunUpdatingForm()
+        return redirect('update')
 
     # def get_object(self, queryset=None):
     #     try:
@@ -171,8 +175,12 @@ class RegisterJunior(CreateView):
         form = UserRegForm(request.POST)
         if form.is_valid():
             user = form.save()
-            Junior.objects.create(username=user)
-            return redirect('index')
+            slug = slugify(user.username)
+            Junior.objects.create(username=user, slug=slug)
+            user = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+            if user:
+                login(request, user)
+            return redirect('update', jun_slug=slug)
         else:
             form = UserRegForm()
         return redirect('index')

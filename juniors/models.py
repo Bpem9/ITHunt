@@ -50,7 +50,7 @@ class Junior(models.Model):
         ordering=['id']
 
     def __str__(self):
-        return self.first_name
+        return self.username
 
     def get_absolute_url(self):
         return reverse('junior', kwargs={'jun_slug': self.slug, 'pos_slug': self.position.slug})

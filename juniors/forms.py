@@ -20,7 +20,8 @@ class LoginUserForm(AuthenticationForm):
 class JunUpdatingForm(forms.ModelForm):
     class Meta:
         model = Junior
-        fields = ['first_name', 'last_name', 'description', 'position']
+        fields = ['first_name', 'last_name', 'description', 'position', 'language']
+        prepopulated_fields = {'slug': ('first_name', 'last_name', 'username',)}
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'profile__header-text'}),
             'last_name': forms.TextInput(attrs={'class': 'profile__header-text'}),

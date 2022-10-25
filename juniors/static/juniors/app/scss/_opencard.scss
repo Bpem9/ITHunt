@@ -331,12 +331,14 @@
       display: flex;
       gap: 27px;
       margin-bottom: 41px;
+      flex-wrap: wrap;
     }
     &__item-skill {
       @extend %bold;
       font-size: 16px;
       line-height: 18px;
       color: #1181b2;
+      white-space: nowrap;
       padding: 13px 30px;
       background: #deeef4;
       border: 1px solid #aaddf1;

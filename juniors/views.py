@@ -176,14 +176,15 @@ class RegisterJunior(CreateView):
         if form.is_valid():
             user = form.save()
             slug = slugify(user.username)
-            Junior.objects.create(username=user, slug=slug)
+            next_id=Junior.objects.aggregate(Max('id'))['id__max'] + 1
+            Junior(id=next_id, username=user, slug=slug).save()
             user = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
             if user:
                 login(request, user)
             return redirect('update', jun_slug=slug)
         else:
             form = UserRegForm()
-        return redirect('index')
+        return redirect('registration')
 
 class LoginUser(LoginView):
     form_class = LoginUserForm

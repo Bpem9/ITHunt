@@ -8,7 +8,7 @@ class SkillsFilters:
         if 'pos_slug' in kwargs.keys():
             juniors = Junior.objects.filter(position__slug=kwargs['pos_slug'])
         else:
-            juniors = Junior.objects.all()
+            juniors = Junior.objects.exclude(position__slug='client')
         search = SearchFilter(self.request.GET, queryset=juniors)
         sfkl = self.request.GET.getlist('softskills')
         hdkl = self.request.GET.getlist('hardskills')

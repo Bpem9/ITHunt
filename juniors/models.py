@@ -33,7 +33,7 @@ class Junior(models.Model):
     phone = models.CharField(max_length=20, null=True, blank=True, verbose_name='Номер телефона')
     url_img = models.ImageField(upload_to="photos/%Y/%m/%d", blank=True, null=True, verbose_name='Фото')
     description = models.TextField(null=True, blank=True, verbose_name='Описание')
-    position = models.ForeignKey('Position', null=True, blank=True, on_delete=models.PROTECT)
+    position = models.ForeignKey('Position', null=True, blank=True, default=6, on_delete=models.PROTECT)
     country = models.ForeignKey('Country', null=True, blank=True, on_delete=models.PROTECT)
     created_date = models.DateTimeField(auto_now_add=True)
     exp = models.CharField(null=True, max_length=20)
@@ -50,7 +50,7 @@ class Junior(models.Model):
         ordering=['id']
 
     def __str__(self):
-        return self.username
+        return str(self.username)
 
     def get_absolute_url(self):
         return reverse('junior', kwargs={'jun_slug': self.slug, 'pos_slug': self.position.slug})
@@ -74,8 +74,8 @@ class Country(models.Model):
 
 class Position(models.Model):
     position = models.CharField(max_length=100, db_index=True)
-    slug = models.SlugField(max_length=100, unique=True, db_index=True, verbose_name='URL')
-    # flag = models.
+    slug = models.SlugField(max_length=100, default='backend', db_index=True, verbose_name='URL')
+
 
     class Meta:
         verbose_name = 'Специальности'

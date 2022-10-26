@@ -14,7 +14,7 @@ register = template.Library()
 
 @register.simple_tag()
 def get_position():
-    return Position.objects.all()
+    return Position.objects.exclude(slug='client')
 
 
 @register.simple_tag(takes_context=True)
@@ -69,4 +69,4 @@ def messengers_icons(slug):
 def spl(value):
     if value:
         return value.split(', ')
-    return 'Вы не указали языков, так что русский'
+    return ('Дефолтный', )

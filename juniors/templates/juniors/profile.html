@@ -46,7 +46,11 @@
             <p class="profile__main-descr">{{ junior.position }}</p>
           </li>
                     <li class="profile__main-item">
+            {% if junior.language %}
             <p class="profile__main-name">Языки</p>
+            {% else %}
+            <p class="profile__main-name">Вы не указали язык, так что</p>
+            {% endif %}
             {% for lang in junior.language|spl %}
               <p class="profile__main-lang">{{ lang }}</p>
             {% endfor %}

@@ -1,6 +1,7 @@
 {% extends 'juniors/base.html' %}
 {% load static %}
 {% load jun_tags %}
+{% block logout %}<a href="{% url 'logout' %}" class="header__account-link">Выйти</a>{% endblock logout %}
 {% block content %}
 <section class="tab">
   <div class="container">
@@ -17,8 +18,8 @@
     <div id="main" class="tab-content main"></div>
     <div id="profile" class="tab-content profile">
       <div class="profile__header">
-        {% if user.junior.url_img %}
-        <img class="profile__header-img" src="{{ user.junior.url_img.url }}">
+        {% if junior.url_img %}
+        <img class="profile__header-img" src="{{ junior.url_img.url }}">
         {% else %}
         <img
           class="profile__header-img"
@@ -29,7 +30,11 @@
         <div class="profile__header-info">
           <div class="profile__header-info__box">
           <h3 class="profile__header-text">{{ junior.first_name }} {{ junior.last_name }}</h3>
-          <img class="profile__header-flag" src="images/flag-india.svg" alt="flag">
+            {% if junior.country.image %}
+          <img class="profile__header-flag" src="{{ junior.country.image.url }}" alt="flag">
+            {% else %}
+          <img class="profile__header-flag" src="{% static 'juniors/app/images/flag-india.svg' %}" alt="flag">
+            {% endif %}
           </div>
           <a href="#" class="profile__header-btn">Редактировать профиль</a>
         </div>
@@ -41,7 +46,11 @@
             <p class="profile__main-descr">{{ junior.position }}</p>
           </li>
                     <li class="profile__main-item">
+            {% if junior.language %}
             <p class="profile__main-name">Языки</p>
+            {% else %}
+            <p class="profile__main-name">Вы не указали язык, так что</p>
+            {% endif %}
             {% for lang in junior.language|spl %}
               <p class="profile__main-lang">{{ lang }}</p>
             {% endfor %}
@@ -77,28 +86,57 @@
           <li class="profile__main-item">
             <p class="profile__main-name">Мой стек навыков и технологий</p>
             <div class="profile__main-box">
+<!--------------------Отображение и добавление Hardskillов-------------------->
               <div class="profile__main-skillbox">
                 <p class="profile__main-title">Hard skills</p>
-                {% for skill in user.junior.hardskills_set.all %}
-                <p class="profile__main-skill">{{ skill.skill }}</p>
+                {% for skill in junior.hardskills_set.all %}
+                  <div class="">{{ hardskillup.non_field_errors }}</div>
+                  <p class="profile__main-skill">{{ skill.skill }}</p>
+                  <a href="{% url 'profile' junior.slug %}?ac=del&t=hardskill&skill={{ skill.skill }}" type="submit" class="btn-close" aria-label="Close">x</a>
                 {% endfor %}
-                <button class="profile__main-btn btn">Добавить</button>
+                <div class="cards-content__hidden">
+                  <ul class="cards-content__hidden-list">
+                    {% for skill in hardskills %}
+                    <li class="cards-content__hidden-item">
+                      <a class="cards-content__hidden-link" type="submit" href="{% url 'profile' junior.slug %}?ac=add&t=hardskill&skill={{ skill.skill }}">{{ skill.skill }}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
               </div>
-
+<!--------------------Отображение и добавление Softskillов-------------------->
               <div class="profile__main-skillbox">
                 <p class="profile__main-title">Soft skills</p>
-                {% for skill in user.junior.softskills_set.all %}
+                {% for skill in junior.softskills_set.all %}
                 <p class="profile__main-skill">{{ skill.skill }}</p>
+                <a href="{% url 'profile' junior.slug %}?ac=del&t=softskill&skill={{ skill.skill }}" type="submit" class="btn-close" aria-label="Close">x</a>
                 {% endfor %}
-                <button class="profile__main-btn btn">Добавить</button>
+                <div class="cards-content__hidden">
+                  <ul class="cards-content__hidden-list">
+                    {% for skill in softskills %}
+                    <li class="cards-content__hidden-item">
+                      <a class="cards-content__hidden-link" type="submit" href="{% url 'profile' junior.slug %}?ac=add&t=softskill&skill={{ skill.skill }}">{{ skill.skill }}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
               </div>
-
+<!--------------------Отображение и добавление Технологий (Tools)-------------------->
               <div class="profile__main-skillbox">
                 <p class="profile__main-title">Tools</p>
-                {% for tool in user.junior.tools_set.all %}
+                {% for tool in junior.tools_set.all %}
                 <p class="profile__main-skill">{{ tool.tool }}</p>
+                <a href="{% url 'profile' junior.slug %}?ac=del&t=tool&skill={{ tool.tool }}" type="submit" class="btn-close" aria-label="Close">x</a>
                 {% endfor %}
-                <button class="profile__main-btn btn">Добавить</button>
+                <div class="cards-content__hidden">
+                  <ul class="cards-content__hidden-list">
+                    {% for tool in tools %}
+                    <li class="cards-content__hidden-item">
+                      <a class="cards-content__hidden-link" type="submit" href="{% url 'profile' junior.slug %}?ac=add&t=tool&skill={{ tool.tool }}">{{ tool.tool }}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
               </div>
             </div>
           </li>
@@ -108,16 +146,32 @@
             <h4 class="profile__main-work__title">Work Experience</h4>
             <div class="profile__main-work__content">
               <div class="profile__main-work__content-left">
-                <img src="{% static 'juniors/app/images/workPic.png' %}" alt="workpic" class="profile__main-work__content-img" />
+
+                <img
+                  src="{% static 'juniors/app/images/workPic.png' %}"
+                  alt="workpic"
+                  class="profile__main-work__content-img"
+                />
                 <div class="profile__main-work__content-box">
-                  <p class="profile__main-work__content-title">IT Recruiter</p>
+                  <p class="profile__main-work__content-title">
+                    IT Recruiter
+                  </p>
                   <p class="profile__main-work__content-text">StarSoft</p>
-                  <img class="profile__main-work__content-textImg" alt="dot" src="{% static 'juniors/app/images/dot.svg' %}" />
+                  <img
+                    class="profile__main-work__content-textImg"
+                    alt="dot"
+                    src="{% static 'juniors/app/images/dot.svg' %}"
+                  />
+
                   <p class="profile__main-work__content-text">Full-time</p>
                 </div>
               </div>
               <div class="profile__main-work__content-right">
-                <p class="profile__main-work__content-right__text">Dec 2020 — Present</p>
+
+                <p class="profile__main-work__content-right__text">
+                  Dec 2020 — Present
+                </p>
+
               </div>
               <div class="profile__main-work__content-workedit">
                 <button class="profile__main-work__content-workedit__btn">Редактировать</button>

@@ -8,10 +8,11 @@
         {% for i in form %}
             <div class="input-group mb-3">
               <span class="input-group-text" id="basic-addon1" >{{ i.label }}</span>
-              {{i}}
+              {{ i }}
               <div class="invalid-feedback">{{ i.errors }}</div>
             </div>
         {% endfor %}
+        <a class="header__account-link" href="{% url 'login' %}">Авторизация</a>
         <button class="btn btn-primary" type="submit">Зарегистрировать</button>
     </form>
 </div>

@@ -6,6 +6,7 @@
   display: none;
 }
 .tabs {
+  margin-left: 30px;
   a {
     padding: 1px 6px;
   }
@@ -56,6 +57,15 @@
     gap: 30px;
     display: flex;
     flex-direction: column;
+  }
+  &__header-info__box{
+    display: flex;
+    align-items: center;
+  }
+  &__header-flag{
+    
+    margin-left: 8px;
+    width: 40px;
   }
   &__header-text {
     @extend %bold;
@@ -111,10 +121,16 @@
 }
 .profile__main {
   margin-top: 55px;
+  &-list{
+    border: 1px solid rgba(38,172,226,.23);
+    border-radius: 12px;
+    padding-top: 10px;
+  }
   &-item {
     display: flex;
     margin-bottom: 42px;
     align-items: center;
+    margin-left: 30px;
   }
   &-name {
     @extend %medium;
@@ -134,11 +150,12 @@
     @extend %bold;
     font-size: 16px;
     line-height: 18px;
-    color: #747473;
-    background: #eae7ea;
-    border: 1px solid #fbfafa;
+    color: #1181B2;
+    background: #DEEEF4;
+    border: 1px solid #AADDF1;
     border-radius: 32px;
     margin-right: 26px;
+    position: relative;
   }
   &-social {
     margin-right: 30px;
@@ -221,6 +238,7 @@
     margin-right: 30px;
     max-height: 44px;
     margin-bottom: 41px;
+    position: relative;
   }
   &-skillbox &-btn {
     margin-bottom: 41px;
@@ -231,6 +249,16 @@
     flex-direction: column;
   }
 
+  &-work__wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 69px;
+    border: 1px solid rgba(38, 172, 226, 0.23);
+    border-radius: 12px;
+    padding: 41px;
+    margin-top: 50px;
+
+  }
   &-work {
     position: relative;
   }
@@ -271,6 +299,9 @@
       line-height: 18px;
       margin-right: 20px;
       position: relative;
+      position: absolute;
+      top: -139px;
+      left: -162px;
       &::after {
         content: '';
         position: absolute;
@@ -320,9 +351,8 @@
   }
   &-workbtn {
     position: absolute;
-    position: absolute;
-    right: 23.7%;
-    bottom: -70px;
+    right: 0;
+    bottom: 80px;
   }
 }
 .profile__main-work__content-eduhidden,
@@ -337,7 +367,7 @@
   border-radius: 30px;
   right: 129px;
   bottom: 40px;
-  transform: translateY(200%);
+  transform: translateY(900%);
   box-shadow: 0px 8px 20px #eae7ea;
   transition: transform 0.3s;
   &--active {
@@ -479,6 +509,15 @@
     }
   }
 }
+.profile__main-work__content-workhidden {
+  right: -500px;
+}
 .profile__main-work__content-eduhidden {
   bottom: 43px;
+}
+.icon-del{
+  position: absolute;
+  right: 7px;
+    top: 37%;
+ display: none;
 }

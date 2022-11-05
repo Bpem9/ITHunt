@@ -4,7 +4,7 @@
       Tools
     </summary>
     <div class="cards-side__inner">
-      {% for tool in tools %}
+      {% for tool in tools|slice:':5' %}
         <div class="cards-side__form-box">
           <input type="checkbox" class="cards-side__input" name="tools" value="{{ tool.tool }}"/>
           <label class="cards-side__label">{{ tool.tool }}</label>
@@ -13,6 +13,12 @@
       {% if tools.count > 5 %}
         <details class="details">
           <summary class="summary">{{ tools.count|add:"-5" }} more</summary>
+          {% for tool in tools|slice:'5:' %}
+          <div class="cards-side__form-box">
+            <input type="checkbox" class="cards-side__input" name="tools" value="{{ tool.tool }}"/>
+            <label class="cards-side__label">{{ tool.tool }}</label>
+          </div>
+          {% endfor %}
         </details>
       {% endif %}
     </div>

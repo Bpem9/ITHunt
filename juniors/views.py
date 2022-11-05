@@ -8,11 +8,12 @@ from .models import *
 from .filters import *
 from .GdrvtoSQL.stuff import lst_juns, hrds, tolls, sfts, poss, countries
 from slugify import slugify
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.views import LoginView
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .forms import *
-from .utils import SkillsFilters
+from .utils import SkillsFilters, SkillControl
+from django.db.models import Max
 
 
 
@@ -43,6 +44,7 @@ class JuniorsView(SkillsFilters, ListView):
         context['search'] = SearchFilter(self.request.GET, queryset=context['object_list'])
         return context
 
+
     def get_queryset(self, **kwargs):
         # <------------------- БДшка------------------->
         # for i in range(len(lst_juns)):
@@ -60,7 +62,8 @@ class JuniorsView(SkillsFilters, ListView):
         #     Country(country=coun, slug=slugify(coun)).save()
         # Заполнение БД из файла GdrvtoSQL (из таблицы google-drive), запускать один раз, в случае, если нужно пересоздать БД базового состояния
         # <------------------- БДшка------------------->
-        return super().get_filtrated_queryset(**self.kwargs)
+        juniors = super().get_filtrated_queryset(**self.kwargs)
+        return super().get_sorted_queryset(juniors)
 
 
 class JuniorsPosition(SkillsFilters, ListView):
@@ -71,89 +74,58 @@ class JuniorsPosition(SkillsFilters, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Страница категории'
+        context['order'] = ['По алфавиту', 'По рейтингу', 'По зарплате', 'По локации']
         context['search'] = SearchFilter(self.request.GET, queryset=context['object_list'])
         return context
 
     def get_queryset(self):
-        return super().get_filtrated_queryset(**self.kwargs)
+        juniors = super().get_filtrated_queryset(**self.kwargs)
+        return super().get_sorted_queryset(juniors)
 
 
-class JuniorProfile(ModelFormMixin, DetailView):
+class JuniorProfile(SkillControl, DetailView):
     model = Junior
-    form_class = JunUpdatingForm
     template_name = 'juniors/profile.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Личный кабинет'
         context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
-        context['softskillsup'] = SoftSkillsUpdate
-        context['hardskillup'] = HardskillsUpdate
-        context['toolsup'] = ToolsUpdate
+        context['hardskills'] = Hardskills.objects.all()
+        context['softskills'] = SoftSkills.objects.all()
+        context['tools'] = Tools.objects.all()
         return context
 
-    def post(self, request, *args, **kwargs):
-        if request.POST.get('first_name'):
-            jun = Junior.objects.get(slug=request.user.junior.slug)
-            form = JunUpdatingForm(request.POST, instance=jun)
-            if form.is_valid():
-                form.save()
-                return redirect('profile')
-            else:
-                print('='*10, form.errors, '='*10)
-                return redirect('profile')
+    def get(self, request, *args, **kwargs):
+        ac = request.GET.get('ac')
+        if ac == 'add':
+            self._add_skill(request, *args, **kwargs)
+        elif ac == 'del':
+            self._del_skill(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
-        if request.POST.get('hardskill'):
-            instance = JuniorHardskills(junior=self.request.user.junior, hardskill=Hardskills.objects.get(id=self.request.POST.get('hardskill')))
-            form = HardskillsUpdate(self.request.POST, instance=instance)
-            print(form.errors)
-            if form.is_valid():
-                try:
-                    form.save()
-                except Exception as e:
-                    form.add_error(None, e.__cause__)
-                finally:
-                    return redirect('profile')
-        elif request.POST.get('softskill'):
-            instance = JuniorSoftskills(junior=self.request.user.junior, softskill=SoftSkills.objects.get(id=self.request.POST.get('softskill')))
-            form = SoftSkillsUpdate(request.POST, instance=instance)
-            if form.is_valid():
-                try:
-                    form.save()
-                    return redirect('profile')
-                except Exception as e:
-                    form.add_error(None, e.__cause__)
-                finally:
-                    return redirect('profile')
-            else:
-                return redirect('profile')
-        elif request.POST.get('tool'):
-            instance = JuniorTools(junior=self.request.user.junior, tool=Tools.objects.get(id=self.request.POST.get('tool')))
-            form = ToolsUpdate(self.request.POST, instance=instance)
-            print(form.errors)
-            if form.is_valid():
-                try:
-                    form.save()
-                    return redirect('profile')
-                except Exception as e:
-                    form.add_error(None, e.__cause__)
-                finally:
-                    return redirect('profile')
-            else:
-                return redirect('profile')
+    # def get_initial(self):
+    #     initial = super().get_initial()
+    #     jun = self.request.user.junior
+    #     initial['first_name'] = jun.first_name
+    #     initial['last_name'] = jun.last_name
+    #     initial['position'] = jun.position
+    #     initial['description'] = jun.description
+    #     return initial
 
-        elif request.POST.get('del'):
-            print('del работает')
-            return render(HttpResponse('del работает'))
+    def _add_skill(self, request, *args, **kwargs):
+        try:
+            super()._add_skill(self, request, *args, **kwargs)
+        except Exception as e:
+            print(e)
+        return super().get(request, *args, **kwargs)
 
-    def get_initial(self):
-        initial = super().get_initial()
-        jun = self.request.user.junior
-        initial['first_name'] = jun.first_name
-        initial['last_name'] = jun.last_name
-        initial['position'] = jun.position
-        initial['description'] = jun.description
-        return initial
+    def _del_skill(self, request, *args, **kwargs):
+        try:
+            super()._del_skill(self, request, *args, **kwargs)
+        except Exception as e:
+            print(e)
+        return super().get(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         return Junior.objects.get(slug=self.kwargs['jun_slug'])
@@ -169,12 +141,24 @@ class JuniorUpdate(UpdateView):
         context = super().get_context_data(**kwargs)
         context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
         return context
+
     def post(self, request, *args, **kwargs):
-        form = JunUpdatingForm(request.POST)
+        instance=Junior.objects.get(slug=kwargs['jun_slug'])
+        form = JunUpdatingForm(request.POST, instance=instance)
         if form.is_valid():
-            print(form)
             form.save()
-        return redirect('profile')
+            return redirect('profile', jun_slug=kwargs['jun_slug'])
+        else:
+            form = JunUpdatingForm()
+        return redirect('update')
+
+    # def get_object(self, queryset=None):
+    #     try:
+    #         return queryset.get(slug=self.request.user.juniors.slug)
+    #     except Exception as e:
+    #         print(e)
+    #     return queryset.get(id=self.request.user.pk)
+
 
 
 class RegisterJunior(CreateView):
@@ -190,11 +174,17 @@ class RegisterJunior(CreateView):
     def post(self, request, *args, **kwargs):
         form = UserRegForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('profile')
+            user = form.save()
+            slug = slugify(user.username)
+            next_id=Junior.objects.aggregate(Max('id'))['id__max'] + 1
+            Junior(id=next_id, username=user, slug=slug).save()
+            user = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+            if user:
+                login(request, user)
+            return redirect('update', jun_slug=slug)
         else:
             form = UserRegForm()
-
+        return redirect('registration')
 
 class LoginUser(LoginView):
     form_class = LoginUserForm
@@ -211,3 +201,6 @@ class LoginUser(LoginView):
 def userlogout(request):
     logout(request)
     return redirect('index')
+
+def New(UpdateView):
+    model = Junior

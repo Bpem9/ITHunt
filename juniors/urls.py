@@ -8,6 +8,7 @@ urlpatterns = [
     path('reg/', RegisterJunior.as_view(), name='registration'),
     path('login/', LoginUser.as_view(), name='login'),
     path('logout/', userlogout, name='logout'),
+    path('new/', JuniorUpdate.as_view(), name='newaccount'),
     path('profile/<slug:jun_slug>/', JuniorProfile.as_view(), name='profile'),
     path('update/<slug:jun_slug>/', JuniorUpdate.as_view(), name='update'),
     path('<slug:pos_slug>/', JuniorsPosition.as_view(), name='position'),

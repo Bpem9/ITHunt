@@ -14,7 +14,7 @@ register = template.Library()
 
 @register.simple_tag()
 def get_position():
-    return Position.objects.all()
+    return Position.objects.exclude(slug='client')
 
 
 @register.simple_tag(takes_context=True)
@@ -67,4 +67,6 @@ def messengers_icons(slug):
 
 @register.filter()
 def spl(value):
-    return value.split(', ')
+    if value:
+        return value.split(', ')
+    return ('Дефолтный', )

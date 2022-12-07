@@ -4,8 +4,8 @@ attrs==22.1.0
 autobahn==22.7.1
 Automat==22.10.0
 bcrypt==4.0.1
-boto3==1.26.22
-botocore==1.29.22
+boto3==1.26.24
+botocore==1.29.24
 cachetools==5.2.0
 certifi==2022.9.14
 cffi==1.15.1

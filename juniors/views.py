@@ -6,13 +6,11 @@ from django.views.generic.edit import FormMixin, ModelFormMixin
 
 from .models import *
 from .filters import *
-from .db_filling import DBFiller
 from slugify import slugify
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.views import LoginView
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .forms import *
-import re
 from .utils import SkillsFilters, SkillControl
 from django.db.models import Max
 
@@ -40,7 +38,6 @@ class JuniorsView(SkillsFilters, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        # DBFiller.full_filling() # запускать один раз, в случае, если нужно пересоздать БД базового состояния
         context['title'] = 'Джуны'
         context['order'] = ['По алфавиту', 'По рейтингу', 'По зарплате', 'По локации']
         context['search'] = SearchFilter(self.request.GET, queryset=context['object_list'])
@@ -114,18 +111,20 @@ class JuniorUpdate(UpdateView):
     template_name = 'juniors/profile_update.html'
     slug_url_kwarg = 'jun_slug'
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
-        context['messengers_form'] = MessengersForm(instance=Messengers.objects.get(junior=self.object))
+        instance, _ = Messengers.objects.get_or_create(junior=self.request.user.junior)
+        context['messengers_form'] = MessengersForm(instance=instance)
         return context
 
     def post(self, request, *args, **kwargs):
-        instance = Messengers.objects.get(junior=request.user.junior)
-        form = MessengersForm(request.POST, instance=instance)
-        if form.is_valid():
-            print('Валидна')
-            messengers = form.save(commit=False)
+        super().post(self, request, *args, **kwargs)
+        instance, _ = Messengers.objects.get_or_create(junior=self.request.user.junior)
+        messengers_form = MessengersForm(request.POST, instance=instance)
+        if messengers_form.is_valid():
+            messengers = messengers_form.save(commit=False)
             if messengers.email:
                 if 'mailto:' not in messengers.email:
                     messengers.email = 'mailto:' + messengers.email
@@ -136,12 +135,10 @@ class JuniorUpdate(UpdateView):
             messengers.save()
             return redirect('profile', jun_slug=kwargs['jun_slug'])
         form = MessengersForm()
-        print('Не валидна')
         return redirect('update', jun_slug=kwargs['jun_slug'])
 
     def get_success_url(self):
         return reverse('profile', kwargs={'jun_slug': self.object.slug})
-
 
 
 class RegisterJunior(CreateView):

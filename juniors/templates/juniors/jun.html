@@ -31,6 +31,11 @@
           <li class="relations__item">
             <p class="relations__item-text">{{ junior.position.position }}-специалист, {{ junior.exp }} опыта</p>
           </li>
+          <li class="relations_item">
+            {% for lang in junior.language|spl %}
+            <p class="profile__main-lang">{{ lang|capfirst }}</p>
+            {% endfor %}
+          </li>
           {% messengers_icons junior.slug %}
         </ul>
         <div class="relations__buttons">

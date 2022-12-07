@@ -1,6 +1,6 @@
 {% load static %}
     <li class="relations__item">
-        <p class="relations__item-social__text">Способы связи</p>
+        <p class="relations__item-social__text">Способы связи: </p>
         {% if junior.linkedin %}
             <a href="{{ junior.linkedin }}" class="relations__item-social__link">
                 <img src="{% static 'juniors/app/images/linkedin.svg' %}" alt="linkedin" class="relations__item-social__img">
@@ -11,4 +11,13 @@
                 <img src="{% static 'juniors/app/images/telegram.svg' %}" alt="telegram" class="relations__item-social__img">
             </a>
         {% endif %}
+        {% for messenger in messengers %}
+            {% for mess, url in messenger.items %}
+                {% if url %}
+                    <a href="{{ url }}" class="relations__item-social__link">
+                        <img src="{% static 'juniors/app/images/'%}{{ mess }}.svg" alt="{{ mess }}" class="relations__item-social__img">
+                    </a>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
     </li>

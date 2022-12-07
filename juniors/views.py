@@ -6,12 +6,13 @@ from django.views.generic.edit import FormMixin, ModelFormMixin
 
 from .models import *
 from .filters import *
-from .GdrvtoSQL.stuff import lst_juns, hrds, tolls, sfts, poss, countries
+from .db_filling import DBFiller
 from slugify import slugify
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.views import LoginView
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .forms import *
+import re
 from .utils import SkillsFilters, SkillControl
 from django.db.models import Max
 
@@ -39,6 +40,7 @@ class JuniorsView(SkillsFilters, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        # DBFiller.full_filling() # запускать один раз, в случае, если нужно пересоздать БД базового состояния
         context['title'] = 'Джуны'
         context['order'] = ['По алфавиту', 'По рейтингу', 'По зарплате', 'По локации']
         context['search'] = SearchFilter(self.request.GET, queryset=context['object_list'])
@@ -46,22 +48,6 @@ class JuniorsView(SkillsFilters, ListView):
 
 
     def get_queryset(self, **kwargs):
-        # <------------------- БДшка------------------->
-        # for i in range(len(lst_juns)):
-        #     Junior(id=i, first_name=lst_juns[i].first_name, last_name=lst_juns[i].last_name, slug=lst_juns[i].slug, linkedin=lst_juns[i].linkedin,
-        #            telegram=lst_juns[i].telegram, email=lst_juns[i].email, descr=lst_juns[i].descr, language=lst_juns[i].lang, exp=lst_juns[i].exp).save()
-        # for tool in tolls:
-        #     Tools(tool=tool).save()
-        # for hdskill in hrds:
-        #     Hardskills(skill=hdskill).save()
-        # for sfskill in sfts:
-        #     SoftSkills(skill=sfskill).save()
-        # for pos in poss:
-        #     Position(position=pos, slug=slugify(pos)).save()
-        # for coun in countries:
-        #     Country(country=coun, slug=slugify(coun)).save()
-        # Заполнение БД из файла GdrvtoSQL (из таблицы google-drive), запускать один раз, в случае, если нужно пересоздать БД базового состояния
-        # <------------------- БДшка------------------->
         juniors = super().get_filtrated_queryset(**self.kwargs)
         return super().get_sorted_queryset(juniors)
 
@@ -86,9 +72,12 @@ class JuniorsPosition(SkillsFilters, ListView):
 class JuniorProfile(SkillControl, DetailView):
     model = Junior
     template_name = 'juniors/profile.html'
+    slug_url_kwarg = 'jun_slug'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['messengers'] = self.object.owner.values('email', 'website', 'whatsup', 'viber', 'facebook',
+                                                         'vk', 'instagram', 'behance', 'pinterest')
         context['title'] = 'Личный кабинет'
         context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
         context['hardskills'] = Hardskills.objects.all()
@@ -104,15 +93,6 @@ class JuniorProfile(SkillControl, DetailView):
             self._del_skill(request, *args, **kwargs)
         return super().get(request, *args, **kwargs)
 
-    # def get_initial(self):
-    #     initial = super().get_initial()
-    #     jun = self.request.user.junior
-    #     initial['first_name'] = jun.first_name
-    #     initial['last_name'] = jun.last_name
-    #     initial['position'] = jun.position
-    #     initial['description'] = jun.description
-    #     return initial
-
     def _add_skill(self, request, *args, **kwargs):
         try:
             super()._add_skill(self, request, *args, **kwargs)
@@ -127,9 +107,6 @@ class JuniorProfile(SkillControl, DetailView):
             print(e)
         return super().get(request, *args, **kwargs)
 
-    def get_object(self, queryset=None):
-        return Junior.objects.get(slug=self.kwargs['jun_slug'])
-
 
 class JuniorUpdate(UpdateView):
     model = Junior
@@ -140,24 +117,30 @@ class JuniorUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search'] = SearchFilter(self.request.GET, queryset=Junior.objects.all())
+        context['messengers_form'] = MessengersForm(instance=Messengers.objects.get(junior=self.object))
         return context
 
     def post(self, request, *args, **kwargs):
-        instance=Junior.objects.get(slug=kwargs['jun_slug'])
-        form = JunUpdatingForm(request.POST, instance=instance)
+        instance = Messengers.objects.get(junior=request.user.junior)
+        form = MessengersForm(request.POST, instance=instance)
         if form.is_valid():
-            form.save()
+            print('Валидна')
+            messengers = form.save(commit=False)
+            if messengers.email:
+                if 'mailto:' not in messengers.email:
+                    messengers.email = 'mailto:' + messengers.email
+            if messengers.website:
+                if 'https://' not in messengers.website:
+                    messengers.website = 'https://' + messengers.website
+            messengers.junior = self.get_object()
+            messengers.save()
             return redirect('profile', jun_slug=kwargs['jun_slug'])
-        else:
-            form = JunUpdatingForm()
-        return redirect('update')
+        form = MessengersForm()
+        print('Не валидна')
+        return redirect('update', jun_slug=kwargs['jun_slug'])
 
-    # def get_object(self, queryset=None):
-    #     try:
-    #         return queryset.get(slug=self.request.user.juniors.slug)
-    #     except Exception as e:
-    #         print(e)
-    #     return queryset.get(id=self.request.user.pk)
+    def get_success_url(self):
+        return reverse('profile', kwargs={'jun_slug': self.object.slug})
 
 
 

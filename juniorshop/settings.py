@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['django-ithunt.herokuapp.com', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    # 'channels',
+    # 'chat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'juniors.apps.JuniorsConfig',
     'django_filters',
+
 ]
 
 MIDDLEWARE = [
@@ -75,6 +78,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'juniorshop.wsgi.application'
+
+
 
 
 # Database
@@ -155,4 +160,12 @@ AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'ithunt-onheroku'
 AWS_QUERYSTRING_AUTH = False
 
-
+# ASGI_APPLICATION = 'juniorshop.asgi.application'
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [('127.0.0.1', 6379)],
+#         },
+#     },
+# }

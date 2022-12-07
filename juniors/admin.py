@@ -2,7 +2,9 @@ from django.contrib import admin
 from .models import *
 
 class JuniorAdmin(admin.ModelAdmin):
-    list_display = ('id', 'first_name', 'last_name', 'username', 'url_img', 'position', 'exp', 'country', 'salary')
+    list_display = ('id', 'first_name', 'last_name', 'username', 'url_img', 'position', 'exp', 'country', 'salary',
+                    'language'
+                    )
     # list_display_links = ('id', 'fio', 'exp', 'salary', 'cat')
     search_fields = ('first_name', 'last_name')
     list_filter = ('position', )
@@ -29,6 +31,11 @@ class ToolingAdmin(admin.ModelAdmin):
 class HardingAdmin(admin.ModelAdmin):
     pass
 
+class MessengersAdmin(admin.ModelAdmin):
+    list_display = ('junior', 'email', 'website', 'whatsup', 'viber', 'facebook', 'vk', 'instagram')
+
+
+admin.site.register(Messengers, MessengersAdmin)
 admin.site.register(Junior, JuniorAdmin)
 admin.site.register(Position, PositionAdmin)
 admin.site.register(Country, CountryAdmin)

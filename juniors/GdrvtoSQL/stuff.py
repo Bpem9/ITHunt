@@ -1,7 +1,4 @@
 import gspread
-from yaml import load, dump, Loader, Dumper
-import json
-from pprint import pprint
 from slugify import slugify
 
 
@@ -81,6 +78,9 @@ poss = []
 for i in lst_juns:
     [poss.append(pos) for pos in i.position.split(', ')]
 poss = list(set(poss))
+
+messengers = ['LinkedIn', 'Telegram', 'What\'s up', 'Viber', 'Facebook', 'Вконтакте', 'Email',
+              'Instagram', 'Behance', 'Pinterest', 'Website']
 
 countries = ['Беларусь', 'Республика Кипр', 'Германия', 'Украина', 'Болгария', 'Грузия']
 

@@ -36,7 +36,7 @@
           <img class="profile__header-flag" src="{% static 'juniors/app/images/flag-india.svg' %}" alt="flag">
             {% endif %}
           </div>
-          <a href="#" class="profile__header-btn">Редактировать профиль</a>
+          <a href="{% url 'update' request.user.junior.slug %}" class="profile__header-btn">Редактировать профиль</a>
         </div>
       </div>
       <div class="profile__main">
@@ -45,14 +45,14 @@
             <p class="profile__main-name">Роль</p>
             <p class="profile__main-descr">{{ junior.position }}</p>
           </li>
-                    <li class="profile__main-item">
+          <li class="profile__main-item">
             {% if junior.language %}
             <p class="profile__main-name">Языки</p>
             {% else %}
             <p class="profile__main-name">Вы не указали язык, так что</p>
             {% endif %}
             {% for lang in junior.language|spl %}
-              <p class="profile__main-lang">{{ lang }}</p>
+              <p class="profile__main-lang">{{ lang|capfirst }}</p>
             {% endfor %}
           </li>
           <li class="profile__main-item">
@@ -77,7 +77,21 @@
                 /></a>
               </p>
             {% endif %}
-            <button class="profile__main-btn btn">Добавить</button>
+            {% for messenger in messengers %}
+              {% for mess, link in messenger.items %}
+                {% if link %}
+                  <p class="profile__main-social">
+                    <a href="{{ link }}" class="profile__main-social__link">
+                      <img
+                        class="profile__main-social__img"
+                        src="{% static 'juniors/app/images/'%}{{ mess }}.svg"
+                        alt="{{ mess }}"
+                      >
+                    </a>
+                  </p>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
           </li>
           <li class="profile__main-item">
             <p class="profile__main-name">Обо мне</p>
@@ -141,6 +155,7 @@
             </div>
           </li>
         </ul>
+<!--------------------Редактирование образования и мест работы (Tools)-------------------->
         <div class="profile__main-work__wrapper">
           <div class="profile__main-work">
             <h4 class="profile__main-work__title">Work Experience</h4>

@@ -10,18 +10,22 @@ class SkillsFilters:
         else:
             juniors = Junior.objects.exclude(position__slug='client')
         search = SearchFilter(self.request.GET, queryset=juniors)
+        min_sal = self.request.GET.getlist('min_sal')
+        max_sal = self.request.GET.getlist('max_sal')
         sfkl = self.request.GET.getlist('softskills')
         hdkl = self.request.GET.getlist('hardskills')
         tlls = self.request.GET.getlist('tools')
-        flts = [*sfkl, *hdkl, *tlls]
+        flts = [*sfkl, *hdkl, *tlls, *min_sal, *max_sal]
         if search.qs:
-            juniors = search.qs
+            juniors = search.qs.distinct()
         if flts:
-            juniors = juniors.filter(Q(softskills__skill__in=flts) |
-                                     Q(hardskills__skill__in=flts) |
-                                     Q(tools__tool__in=flts)
-                                     )
-        return juniors.distinct()
+            juniors = juniors.filter(
+                Q(softskills__skill__in=flts) |
+                Q(hardskills__skill__in=flts) |
+                Q(tools__tool__in=flts) &
+                Q(salary__range=(*min_sal, *max_sal))
+            ).distinct()
+        return juniors
 
     def get_sorted_queryset(self, juniors, **kwargs):
         if self.request.GET.get('sort') == 'По алфавиту':

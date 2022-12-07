@@ -22,7 +22,9 @@ from juniorshop import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', JuniorsView.as_view(), name='index'),
-    path('juniors/', include('juniors.urls'))
+    path('juniors/', include('juniors.urls')),
+    path('chat/', include('chat.urls')),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

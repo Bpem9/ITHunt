@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from django.forms import inlineformset_factory
 
 from .models import *
 
@@ -20,10 +21,16 @@ class LoginUserForm(AuthenticationForm):
 class JunUpdatingForm(forms.ModelForm):
     class Meta:
         model = Junior
-        fields = ['first_name', 'last_name', 'description', 'position', 'language']
-        prepopulated_fields = {'slug': ('first_name', 'last_name', 'username',)}
+        fields = ['first_name', 'last_name', 'description', 'position', 'language', 'url_img', 'country', 'telegram', 'linkedin']
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'profile__header-text'}),
             'last_name': forms.TextInput(attrs={'class': 'profile__header-text'}),
             'description': forms.Textarea(attrs={'class': 'profile__main-textarea'}),
+            'url_img': forms.FileInput()
             }
+
+
+class MessengersForm(forms.ModelForm):
+    class Meta:
+        model = Messengers
+        exclude = ('junior', )

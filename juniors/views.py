@@ -45,7 +45,7 @@ class JuniorsView(SkillsFilters, ListView):
 
 
     def get_queryset(self, **kwargs):
-        juniors = super().get_filtrated_queryset(**self.kwargs)
+        juniors = super().get_filtrated_queryset(**kwargs)
         return super().get_sorted_queryset(juniors)
 
 
